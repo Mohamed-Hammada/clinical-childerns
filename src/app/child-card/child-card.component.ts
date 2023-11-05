@@ -1,5 +1,6 @@
 import { Component,Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-child-card',
@@ -28,6 +29,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 export class ChildCardComponent {
   @Input() child: any;
   hoverState = 'initial'; // Initial state is not hovered
-
-  viewChildDetails(id:number){}
+  constructor(private router: Router) { }
+  viewChildDetails(childId:number){
+    this.router.navigate(['/child-history', childId]);
+  }
 }

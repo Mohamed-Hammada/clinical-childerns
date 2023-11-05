@@ -1,0 +1,31 @@
+<table id="medicalRecords">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Symptoms</th>
+        <th>Analysis</th>
+        <th>X-Rays</th>
+        <th>Diagnosis</th>
+        <th>Treatment</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of medicalRecords" class="elements-row">
+        <td>{{ record.date | date }}</td>
+        <td>{{ record.symptoms.join(', ') }}</td>
+        <td>{{ record.analysis.join(', ') }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let xRay of record.xRays">
+              <a [href]="xRay" target="_blank">X-Ray {{ record.xRays.indexOf(xRay) + 1 }}</a>
+            </li>
+          </ul>
+        </td>
+        <td>{{ record.diagnosis }}</td>
+        <td>{{ record.treatment }}</td>
+        <td>{{ record.notes }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

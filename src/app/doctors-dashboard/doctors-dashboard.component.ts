@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '
 import { DummyDataService } from '../services/dummy-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctors-dashboard',
@@ -21,9 +22,9 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   isCardView: boolean = true; // Default to card view
   displayedColumns: string[] = ['id', 'name', 'diagnosis', 'lastVisit'];
-
+  
   constructor(private dummyDataService: DummyDataService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef,private router: Router) { }
 
   ngOnInit() {
  
@@ -57,7 +58,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     // Implementation to view child details
     // Could involve navigating to a new route or opening a modal
     console.log('Navigating to details for child:', childId);
-
+    this.router.navigate(['/child-history', childId]);
   }
 
   // In doctors-dashboard.component.ts

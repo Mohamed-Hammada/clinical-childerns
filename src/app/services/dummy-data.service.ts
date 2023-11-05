@@ -1,6 +1,8 @@
 // In dummy-data.service.ts
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
+import { MedicalRecord } from '../models/medical-record.model';
+import { Child } from '../models/child.model';
 
 @Injectable({
   providedIn: 'root'
@@ -146,7 +148,54 @@ export class DummyDataService {
   ];
   
 
-
+  private children: Child[] = [
+    {
+      id: '1',
+      name: 'Alice',
+      birthday: new Date('2010-03-15'),
+      address: '123 Main St',
+      telephone: '555-555-5555',
+      lastVisit: new Date('2023-10-20'),
+      diagnosis: ['Fever', 'Cough'],
+    },
+    {
+      id: '2',
+      name: 'Bob',
+      birthday: new Date('2012-07-28'),
+      address: '456 Elm St',
+      telephone: '555-555-5556',
+      lastVisit: new Date('2023-09-10'),
+      diagnosis: ['Sore Throat', 'Headache'],
+    },
+    // Add more children as needed
+  ];
+  
+  private medicalRecords: MedicalRecord[] = [
+    {
+      date: new Date('2023-10-20'),
+      symptoms: ['Fever', 'Cough'],
+      analysis: ['Blood test', 'X-ray'],
+      xRays: ['https://example.com/xray1.jpg', 'https://example.com/xray2.jpg'],
+      diagnosis: 'Common Cold',
+      treatment: 'Rest and fluids',
+      notes: 'Prescribed medication for fever and cough.',
+    },
+    {
+      date: new Date('2023-09-10'),
+      symptoms: ['Sore Throat', 'Headache'],
+      analysis: ['Throat swab', 'Physical examination'],
+      xRays: [], // No X-rays for this record
+      diagnosis: 'Strep Throat',
+      treatment: 'Prescribed antibiotics',
+      notes: 'Scheduled a follow-up appointment.',
+    },
+    // Add more medical records as needed
+  ];
+ 
+  
+  
+  
+  
   constructor() { }
 
   // Function to simulate an API call to get child records
@@ -154,6 +203,9 @@ export class DummyDataService {
     return of(this.childData);
   }
 
+  getMedicalRecords(): Observable<any[]> {
+    return of(this.medicalRecords);
+  }
   filterChildren(searchValue: string): any[] {
     return this.childData.filter(child =>
       child.name.toLowerCase().includes(searchValue.toLowerCase())

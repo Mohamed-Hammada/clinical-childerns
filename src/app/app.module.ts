@@ -21,6 +21,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import { ChildTableComponent } from './child-table/child-table.component';
 import { ViewToggleComponent } from './view-toggle/view-toggle.component';
+import { ChildHistoryTableComponent } from './child-history-table/child-history-table.component';
+import { ChildHistoryCardsComponent } from './child-history-cards/child-history-cards.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ViewToggleComponent } from './view-toggle/view-toggle.component';
     ChildCardComponent,
     ChildHistoryComponent,
     ChildTableComponent,
-    ViewToggleComponent
+    ViewToggleComponent,
+    ChildHistoryTableComponent,
+    ChildHistoryCardsComponent
   ],
   imports: [
     BrowserModule,
