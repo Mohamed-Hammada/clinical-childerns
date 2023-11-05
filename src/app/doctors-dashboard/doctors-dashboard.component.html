@@ -1,0 +1,26 @@
+<app-view-toggle [ngModel]="isCardView" (viewModeChange)="toggleView($event)"></app-view-toggle>
+
+
+<div class="search-div" style="display: flex; align-items: center;">
+    <mat-form-field  style="flex: 1;" appearance="outline">
+        <mat-label>Search for a child...</mat-label>
+        <input matInput (keyup)="applyFilter($any($event.target).value)">
+    </mat-form-field>
+</div>
+
+<mat-paginator showFirstLastButtons 
+                          [pageSize]="pageSize" 
+                          [pageSizeOptions]="pageSizeOptions" 
+                          (page)="pageEvent($event)" 
+                          [length]="totalRecords"></mat-paginator>
+                          
+<div *ngIf="isCardView">
+    <div *ngFor="let child of childRecords">
+        <app-child-card [child]="child"></app-child-card>
+    </div>
+</div>
+<ng-container *ngIf="!isCardView">
+  <app-child-table [childRecords]="childRecords" (selectChild)="viewChildDetails($event)"></app-child-table>
+</ng-container>
+
+  

@@ -1,0 +1,15 @@
+.child-card {
+    max-width: 400px; /* Or your preferred card width */
+    margin: 10px;
+  }
+  
+  mat-card-image {
+    max-height: 200px; /* Adjust as needed */
+    object-fit: cover; /* This makes the image cover the area nicely */
+  }
+  
+  mat-card {
+    border-radius: 15px; /* Adjust the value to control the roundness of the edges */
+    overflow: hidden; /* Ensure content within the card doesn't overflow */
+  }
+  

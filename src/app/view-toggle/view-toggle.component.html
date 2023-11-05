@@ -1,0 +1,11 @@
+<div style="display: flex; justify-content: flex-end; align-items: flex-start; margin-top: 10px; margin-bottom: 10px;">
+    <mat-button-toggle-group [value]="isCardView ? 'card' : 'list'" color="primary">
+      <mat-button-toggle (click)="toggleView(true)" value="card">
+        <mat-icon>view_module</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle (click)="toggleView(false)" value="list">
+        <mat-icon>view_list</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  

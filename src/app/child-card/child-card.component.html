@@ -1,0 +1,19 @@
+<!-- Example of a child card -->
+<mat-card [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'">
+
+    <mat-card-header>
+      <mat-card-title>{{ child.name }}</mat-card-title>
+      <mat-card-subtitle>{{ child.ageYears }} years, {{ child.ageDays }} days</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Last visit: {{ child.lastVisit | date }}</p>
+      <p>Days since last visit: {{ child.daysSinceLastVisit }}</p>
+      <p>Latest diagnosis: {{ child.latestDiagnosis }}</p>
+  
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- Actions like 'View More' or 'Edit' -->
+      <button mat-button (click)="viewChildDetails(child.id)">VIEW DETAILS</button>
+    </mat-card-actions>
+  </mat-card>
+  

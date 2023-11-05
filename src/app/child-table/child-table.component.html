@@ -1,0 +1,21 @@
+<table id="customers">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Last Visit</th>
+        <th>Days Since Last Visit</th>
+        <th>Diagnosis</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let child of childRecords" (click)="viewChildDetails(child.id)" class="elements-row">
+        <td>{{ child.name }}</td>
+        <td>{{ child.ageYears }} years, {{ child.ageDays }} days</td>
+        <td>{{ child.lastVisit | date }}</td>
+        <td>{{ child.daysSinceLastVisit }}</td>
+        <td>{{ child.latestDiagnosis }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
