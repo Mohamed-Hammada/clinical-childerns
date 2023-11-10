@@ -27,7 +27,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class ChildHistoryCardsComponent {
   @Input() medicalRecord: any;
-  childRecord: any;
+  @Input() childRecord: any;
   hoverState = 'initial'; // Initial state is not hovered
 
   viewChildDetails(id:number){}

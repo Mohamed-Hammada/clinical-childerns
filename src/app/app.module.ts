@@ -23,6 +23,7 @@ import { ChildTableComponent } from './child-table/child-table.component';
 import { ViewToggleComponent } from './view-toggle/view-toggle.component';
 import { ChildHistoryTableComponent } from './child-history-table/child-history-table.component';
 import { ChildHistoryCardsComponent } from './child-history-cards/child-history-cards.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ChildHistoryCardsComponent } from './child-history-cards/child-history-
     ChildTableComponent,
     ViewToggleComponent,
     ChildHistoryTableComponent,
-    ChildHistoryCardsComponent
+    ChildHistoryCardsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

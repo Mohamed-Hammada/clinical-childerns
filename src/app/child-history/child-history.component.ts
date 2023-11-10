@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef , Input 
 import { DummyDataService } from '../services/dummy-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Child } from '../models/child.model';
 
 @Component({
   selector: 'app-child-history',
@@ -15,7 +17,8 @@ export class ChildHistoryComponent {
   pageSize: number = 5;
   pageSizeOptions: number[] = [5,10,15,20,50,100,200,500];
   totalRecords: number = -1;
- 
+  currentChildId: number = -1;
+  currentChild!: Child ;
   medicalRecords: any[] = [];
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
@@ -23,16 +26,26 @@ export class ChildHistoryComponent {
   displayedColumns: string[] = ['id', 'name', 'diagnosis', 'lastVisit'];
 
   constructor(private dummyDataService: DummyDataService,
+    private router: Router, private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
- 
+    // debugger
+    this.route.paramMap.subscribe(params => {
+      const childId = params.get('id'); // '+' converts the string id to a number
+      if (childId) {
+        this.dummyDataService.getChildDataById(+childId).subscribe(child => {
+          this.currentChild = child;
+        this.viewChildDetails(+childId);
+      });
+      }
+    });
     this.isCardView = sessionStorage.getItem('preferredView') !== 'table';
 
   }
 
   ngAfterViewInit() {
-    this.dummyDataService.getMedicalRecords().subscribe(data => {
+    this.dummyDataService.getMedicalRecords(this.currentChildId).subscribe(data => {
       this.medicalRecords = data;
       this.paginator.length = data.length;
       this.changeDetectorRef.detectChanges(); // Trigger change detection
@@ -57,7 +70,11 @@ export class ChildHistoryComponent {
     // Implementation to view child details
     // Could involve navigating to a new route or opening a modal
     console.log('Navigating to details for child:', childId);
-
+    this.currentChildId = childId;
+    this.dummyDataService.getMedicalRecords(childId).subscribe(medicalRecords=>{
+      this.medicalRecords = medicalRecords;
+    })
+    
   }
 
   // In doctors-dashboard.component.ts
@@ -86,7 +103,7 @@ export class ChildHistoryComponent {
   }
 
   pageEvent(event: any): void {
-    debugger
+    // debugger
     // Page size changed
     if (event.pageSize !== this.pageSize) {
       this.pageSizeChanged(event);

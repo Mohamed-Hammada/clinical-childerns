@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ChildHistoryTableComponent {
   @Input() medicalRecords!: any[]; // Replace 'any' with your actual data type
+  @Input() childRecord: any;
   @Output() selectChild = new EventEmitter<number>();
 
   viewChildDetails(childId: number) {

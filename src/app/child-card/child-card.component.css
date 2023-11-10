@@ -11,5 +11,7 @@
   mat-card {
     border-radius: 15px; /* Adjust the value to control the roundness of the edges */
     overflow: hidden; /* Ensure content within the card doesn't overflow */
+    cursor: pointer; /* Indicates the card is clickable */
+
   }
   

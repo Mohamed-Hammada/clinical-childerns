@@ -14,7 +14,16 @@
       <tr *ngFor="let record of medicalRecords" class="elements-row">
         <td>{{ record.date | date }}</td>
         <td>{{ record.symptoms.join(', ') }}</td>
-        <td>{{ record.analysis.join(', ') }}</td>
+      
+
+        <td>
+          <ul>
+            <li *ngFor="let analysisRow of record.analysis">
+              <a [href]="analysisRow" target="_blank">Analysis {{ record.analysis.indexOf(analysisRow) + 1 }}</a>
+            </li>
+          </ul>
+        </td>
+
         <td>
           <ul>
             <li *ngFor="let xRay of record.xRays">

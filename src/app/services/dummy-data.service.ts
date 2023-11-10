@@ -146,29 +146,7 @@ export class DummyDataService {
       latestDiagnosis: 'Vomiting' 
     },
   ];
-  
-
-  private children: Child[] = [
-    {
-      id: '1',
-      name: 'Alice',
-      birthday: new Date('2010-03-15'),
-      address: '123 Main St',
-      telephone: '555-555-5555',
-      lastVisit: new Date('2023-10-20'),
-      diagnosis: ['Fever', 'Cough'],
-    },
-    {
-      id: '2',
-      name: 'Bob',
-      birthday: new Date('2012-07-28'),
-      address: '456 Elm St',
-      telephone: '555-555-5556',
-      lastVisit: new Date('2023-09-10'),
-      diagnosis: ['Sore Throat', 'Headache'],
-    },
-    // Add more children as needed
-  ];
+   
   
   private medicalRecords: MedicalRecord[] = [
     {
@@ -203,9 +181,14 @@ export class DummyDataService {
     return of(this.childData);
   }
 
-  getMedicalRecords(): Observable<any[]> {
+  getMedicalRecords(childId:number): Observable<any[]> {
     return of(this.medicalRecords);
   }
+
+  getChildDataById(childId:number): Observable<any> {
+    return of(this.childData.filter(e=>e.id===childId)[0]);
+  }
+
   filterChildren(searchValue: string): any[] {
     return this.childData.filter(child =>
       child.name.toLowerCase().includes(searchValue.toLowerCase())

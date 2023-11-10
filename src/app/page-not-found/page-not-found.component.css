@@ -1,0 +1,10 @@
+/* page-not-found.component.css */
+.page-not-found-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .page-not-found-container h1 {
+    font-size: 6em;
+  }
+  

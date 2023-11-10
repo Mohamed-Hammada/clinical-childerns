@@ -87,7 +87,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   }
 
   pageEvent(event: any): void {
-    debugger
+    // debugger
     // Page size changed
     if (event.pageSize !== this.pageSize) {
       this.pageSizeChanged(event);

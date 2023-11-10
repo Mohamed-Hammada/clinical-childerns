@@ -1,19 +1,33 @@
 <!-- Example of a child card -->
-<mat-card [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'">
+<mat-card style="margin:2em;" [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'">
 
     <mat-card-header>
       <!-- Assuming you have a method to get the child's name from the ID or the name is included in the record -->
       <mat-card-title>{{ getChildName(medicalRecord.id) }}</mat-card-title>
       <!-- You'll need to calculate ageYears and ageDays from the child's birthdate -->
-      <mat-card-subtitle>{{ calculateAgeYears(childRecord.birthdate) }} years, {{ calculateAgeDays(childRecord.birthdate) }} days</mat-card-subtitle>
+      <mat-card-subtitle>{{ childRecord.ageYears }} years, {{ childRecord.ageDays }} days</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>Last visit: {{ medicalRecord.date | date }}</p>
+      <p>Visit Date: {{ medicalRecord.date | date }}</p>
       <!-- Assuming you have a method to calculate days since the last visit -->
-      <p>Days since last visit: {{ calculateDaysSinceLastVisit(medicalRecord.date) }}</p>
-      <p>Latest diagnosis: {{ medicalRecord.diagnosis }}</p>
+      <p>Days since previous visit: {{ calculateDaysSinceLastVisit(medicalRecord.date) }}</p>
+      <p>Diagnosis: {{ medicalRecord.diagnosis }}</p>
+      <p>Treatment: {{ medicalRecord.treatment }}</p>
+      <p>Notes: {{ medicalRecord.notes }}</p>
       <!-- Add more details as needed -->
   
+      <div class="symptom-tags">
+        <ng-container *ngFor="let symptom of medicalRecord.symptoms">
+          <p class="tag w3-padding w3-round-large d-inline-block">{{symptom}}</p>
+        </ng-container>
+      </div>
+      <!-- <div *ngFor="let analysisRow of medicalRecord.analysis">
+        <p>{{analysisRow}}</p>
+      </div>
+      <div *ngFor="let xray of medicalRecord.xRays">
+        <p>{{xray}}</p>
+      </div> -->
+
     </mat-card-content>
     <mat-card-actions>
       <!-- Actions like 'View More' or 'Edit' -->
