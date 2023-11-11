@@ -1,13 +1,1 @@
-
-
-.search-div {
-    display: flex;
-    align-items: center; 
-  }
-  
-  /* Add your Angular Material theme if needed */
-  .mat-button-toggle.mat-button-toggle-checked {
-    background-color: #04AA6D; /* Change this color to your desired selection color */
-    color: white; /* Optional: Change text color to make it more visible */
-  }
-    
+ 

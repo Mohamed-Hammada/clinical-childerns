@@ -1,4 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css"; 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.tag {
+    background-color: #5bacd8;
+    color: #fff;
+    display: inline-block;
+    padding: 8px 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 8px;
+}
+
+
+.symptom-tags {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.symptom-tags p {
+    margin-right: 5px;
+}
+
+
+:root {
+    --card-border-color: #ccc;
+    --card-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+    --card-font: Open Sans, sans-serif;
+    --card-padding: 16px;
+}
+
+
+.mat-card {
+    border: 1px solid var(--card-border-color);
+    border-radius: 7px;
+    box-shadow: var(--card-shadow);
+    font-family: var(--card-font);
+    padding: var(--card-padding);
+    overflow: hidden;
+    /* Ensure content within the card doesn't overflow */
+    cursor: pointer;
+    /* Indicates the card is clickable */
+}
+
+
+.mat-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.30);
+    transform: translateY(-5px);
+
+}
+
+.mat-card-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+}
+
+
+.mat-card-title {
+    font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-card-image {
+    max-height: 200px;
+    /* Adjust as needed */
+    object-fit: cover;
+    /* This makes the image cover the area nicely */
+}
+
+
+
+.search-div {
+    display: flex;
+    align-items: center;
+}
+
+/* Add your Angular Material theme if needed */
+.mat-button-toggle.mat-button-toggle-checked {
+    background-color: #04AA6D;
+    /* Change this color to your desired selection color */
+    color: white;
+    /* Optional: Change text color to make it more visible */
+}
