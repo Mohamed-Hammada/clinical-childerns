@@ -1,5 +1,7 @@
 <!-- Example of a child card -->
-<mat-card [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'">
+<mat-card [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" 
+(mouseleave)="hoverState = 'initial'" (click)="viewChildDetails(medicalRecord.id)">
+ 
 
     <mat-card-header>
       <!-- Assuming you have a method to get the child's name from the ID or the name is included in the record -->
