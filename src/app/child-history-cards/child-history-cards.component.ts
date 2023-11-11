@@ -30,5 +30,7 @@ export class ChildHistoryCardsComponent {
   @Input() childRecord: any;
   hoverState = 'initial'; // Initial state is not hovered
 
-viewChildDetails(id:number){}
+viewChildDetails(id:number){
+  console.log('Clcked>>')
+}
 }
