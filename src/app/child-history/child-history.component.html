@@ -15,11 +15,15 @@
                           (page)="pageEvent($event)" 
                           [length]="totalRecords"></mat-paginator>
                           
-<div *ngIf="isCardView">
+<div style="display: flex; flex-wrap: wrap;" *ngIf="isCardView">
     <div *ngFor="let medicalRecord of medicalRecords">
-        <app-child-history-cards [childRecord]="currentChild" [medicalRecord]="medicalRecord"></app-child-history-cards>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, 400px); gap: 5px; height: 100%;">
+            <app-child-history-cards [childRecord]="currentChild" [medicalRecord]="medicalRecord"  style="margin: 5px;"></app-child-history-cards>
+        </div>
     </div>
 </div>
+
+
 <ng-container *ngIf="!isCardView">
   <app-child-history-table [childRecord]="currentChild" [medicalRecords]="medicalRecords" (selectChild)="viewChildDetails($event)"></app-child-history-table>
 </ng-container>

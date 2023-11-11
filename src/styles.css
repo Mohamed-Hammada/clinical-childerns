@@ -58,6 +58,8 @@ body {
     /* Ensure content within the card doesn't overflow */
     cursor: pointer;
     /* Indicates the card is clickable */
+   /* flex-wrap: wrap; */
+   box-sizing: border-box;
 }
 
 
@@ -71,7 +73,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
-
+    width: 90%;
 }
 
 
