@@ -3,16 +3,17 @@
 
     <mat-card-header>
       <!-- Assuming you have a method to get the child's name from the ID or the name is included in the record -->
-      <mat-card-title>{{ getChildName(medicalRecord.id) }}</mat-card-title>
+      <!-- <mat-card-title>{{ childRecord.name }}</mat-card-title> -->
       <!-- You'll need to calculate ageYears and ageDays from the child's birthdate -->
       <mat-card-subtitle>{{ childRecord.ageYears }} years, {{ childRecord.ageDays }} days</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+      
       <p>Visit Date: {{ medicalRecord.date | date }}</p>
       <!-- Assuming you have a method to calculate days since the last visit -->
-      <p>Days since previous visit: {{ calculateDaysSinceLastVisit(medicalRecord.date) }}</p>
+      <p style="background-color: rgb(249, 246, 246); border-radius: 5%;">Days since previous visit: {{ childRecord.daysSinceLastVisit }}</p>
       <p>Diagnosis: {{ medicalRecord.diagnosis }}</p>
-      <p>Treatment: {{ medicalRecord.treatment }}</p>
+      <p style="background-color: rgb(249, 246, 246); border-radius: 5%;">Treatment: {{ medicalRecord.treatment }}</p>
       <p>Notes: {{ medicalRecord.notes }}</p>
       <!-- Add more details as needed -->
   

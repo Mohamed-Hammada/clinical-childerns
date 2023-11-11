@@ -102,3 +102,68 @@ body {
     color: white;
     /* Optional: Change text color to make it more visible */
 }
+
+
+
+/* filter controls */
+.search-div {
+    margin: 10px;
+    text-align: center;
+    vertical-align: middle;
+    /* line-height: 90px;  */
+}
+
+.search-form-field {
+    width: 60%;
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.search-form-field div.mat-form-field-underline {
+    display: none;
+}
+
+.search-form-field div.mat-form-field-infix {
+    border-top: 0px;
+}
+
+.search-form-field div.mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+.search-form-field div.mat-form-field-suffix button {
+    height: 32px;
+    width: 32px;
+}
+
+
+
+#tablestyle {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #tablestyle td,
+  #tablestyle th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #tablestyle tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #tablestyle tr:hover {
+    background-color: #ddd;
+  }
+  
+  #tablestyle th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }

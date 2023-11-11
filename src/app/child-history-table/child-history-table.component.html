@@ -1,10 +1,10 @@
-<table id="medicalRecords">
+<table id="tablestyle">
     <thead>
       <tr>
         <th>Date</th>
         <th>Symptoms</th>
-        <th>Analysis</th>
-        <th>X-Rays</th>
+        <!-- <th>Analysis</th>
+        <th>X-Rays</th> -->
         <th>Diagnosis</th>
         <th>Treatment</th>
         <th>Notes</th>
@@ -16,7 +16,7 @@
         <td>{{ record.symptoms.join(', ') }}</td>
       
 
-        <td>
+        <!-- <td>
           <ul>
             <li *ngFor="let analysisRow of record.analysis">
               <a [href]="analysisRow" target="_blank">Analysis {{ record.analysis.indexOf(analysisRow) + 1 }}</a>
@@ -30,7 +30,7 @@
               <a [href]="xRay" target="_blank">X-Ray {{ record.xRays.indexOf(xRay) + 1 }}</a>
             </li>
           </ul>
-        </td>
+        </td> -->
         <td>{{ record.diagnosis }}</td>
         <td>{{ record.treatment }}</td>
         <td>{{ record.notes }}</td>

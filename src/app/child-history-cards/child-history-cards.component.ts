@@ -30,25 +30,5 @@ export class ChildHistoryCardsComponent {
   @Input() childRecord: any;
   hoverState = 'initial'; // Initial state is not hovered
 
-  viewChildDetails(id:number){}
-
-  // This method needs the child's ID to fetch or calculate the name
-getChildName(childId: number): string | void {
-  // Logic to retrieve the child's name using the ID
-}
-
-calculateAgeYears(birthdate: Date): number | void{
-  // Logic to calculate the age in years based on the birthdate
-}
-
-calculateAgeDays(birthdate: Date): number | void{
-  // Logic to calculate the age in days based on the birthdate
-}
-
-calculateDaysSinceLastVisit(lastVisitDate: Date): number {
-  const today = new Date();
-  const diffTime = Math.abs(today.getTime() - lastVisitDate.getTime());
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert the time difference to days
-}
-
+viewChildDetails(id:number){}
 }
