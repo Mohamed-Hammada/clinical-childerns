@@ -12,5 +12,6 @@ export class ChildHistoryTableComponent {
 
   viewChildDetails(childId: number) {
     this.selectChild.emit(childId);
+    console.log('clicked')
   }
 }

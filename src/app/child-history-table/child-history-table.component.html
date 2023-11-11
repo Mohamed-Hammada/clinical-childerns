@@ -11,7 +11,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let record of medicalRecords" class="elements-row">
+ 
+      <tr *ngFor="let record of medicalRecords" (click)="viewChildDetails(record.id)" class="elements-row">
         <td>{{ record.date | date }}</td>
         <td>{{ record.symptoms.join(', ') }}</td>
       
