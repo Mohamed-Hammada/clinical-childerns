@@ -24,7 +24,8 @@ import { ViewToggleComponent } from './view-toggle/view-toggle.component';
 import { ChildHistoryTableComponent } from './child-history-table/child-history-table.component';
 import { ChildHistoryCardsComponent } from './child-history-cards/child-history-cards.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { CreateUpdateMedicalRecordComponent } from './create-update-medical-record/create-update-medical-record.component';
+import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ViewToggleComponent,
     ChildHistoryTableComponent,
     ChildHistoryCardsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CreateUpdateMedicalRecordComponent
   ],
   imports: [
     BrowserModule,

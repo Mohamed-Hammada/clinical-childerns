@@ -1,40 +1,41 @@
 <!-- Example of a child card -->
-<mat-card [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" 
-(mouseleave)="hoverState = 'initial'" (click)="viewChildDetails(medicalRecord.id)">
- 
+<mat-card [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'"
+  (click)="viewChildDetails(medicalRecord.id)">
 
-    <mat-card-header>
-      <!-- Assuming you have a method to get the child's name from the ID or the name is included in the record -->
-      <!-- <mat-card-title>{{ childRecord.name }}</mat-card-title> -->
-      <!-- You'll need to calculate ageYears and ageDays from the child's birthdate -->
-      <mat-card-subtitle>{{ childRecord.ageYears }} years, {{ childRecord.ageDays }} days</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      
-      <p>Visit Date: {{ medicalRecord.date | date }}</p>
-      <!-- Assuming you have a method to calculate days since the last visit -->
-      <p style="background-color: rgb(249, 246, 246); border-radius: 5%;">Days since previous visit: {{ childRecord.daysSinceLastVisit }}</p>
-      <p>Diagnosis: {{ medicalRecord.diagnosis }}</p>
-      <p style="background-color: rgb(249, 246, 246); border-radius: 5%;">Treatment: {{ medicalRecord.treatment }}</p>
-      <p>Notes: {{ medicalRecord.notes }}</p>
-      <!-- Add more details as needed -->
-  
-      <div class="symptom-tags">
-        <ng-container *ngFor="let symptom of medicalRecord.symptoms">
-          <p class="tag">{{symptom}}</p>
-        </ng-container>
-      </div>
-      <!-- <div *ngFor="let analysisRow of medicalRecord.analysis">
+
+  <mat-card-header>
+    <!-- Assuming you have a method to get the child's name from the ID or the name is included in the record -->
+    <!-- <mat-card-title>{{ childRecord.name }}</mat-card-title> -->
+    <!-- You'll need to calculate ageYears and ageDays from the child's birthdate -->
+    <mat-card-subtitle>{{ childRecord.ageYears }} years, {{ childRecord.ageDays }} days</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+    <p>Visit Date: {{ medicalRecord.date | date }}</p>
+    <!-- Assuming you have a method to calculate days since the last visit -->
+    <p style="background-color: rgb(249, 246, 246); border-radius: 5%;">Days since previous visit: {{
+      childRecord.daysSinceLastVisit }}</p>
+    <p>Diagnosis: {{ medicalRecord.diagnosis }}</p>
+    <p style="background-color: rgb(249, 246, 246); border-radius: 5%;">Treatment: {{ medicalRecord.treatment }}</p>
+    <p>Notes: {{ medicalRecord.notes }}</p>
+    <!-- Add more details as needed -->
+
+    <div class="symptom-tags">
+      <ng-container *ngFor="let symptom of medicalRecord.symptoms">
+        <p class="tag">{{symptom}}</p>
+      </ng-container>
+    </div>
+    <!-- <div *ngFor="let analysisRow of medicalRecord.analysis">
         <p>{{analysisRow}}</p>
       </div>
       <div *ngFor="let xray of medicalRecord.xRays">
         <p>{{xray}}</p>
       </div> -->
 
-    </mat-card-content>
-      <!-- Actions like 'View More' or 'Edit' -->
+  </mat-card-content>
+  <!-- Actions like 'View More' or 'Edit' -->
 
-    <!-- <mat-card-actions>
+  <!-- <mat-card-actions>
       <button mat-button (click)="viewChildDetails(medicalRecord.id)">VIEW DETAILS</button>
     </mat-card-actions> -->
-  </mat-card>
+</mat-card>

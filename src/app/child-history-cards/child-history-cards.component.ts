@@ -1,5 +1,6 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Router , NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-child-history-cards',
@@ -29,8 +30,11 @@ export class ChildHistoryCardsComponent {
   @Input() medicalRecord: any;
   @Input() childRecord: any;
   hoverState = 'initial'; // Initial state is not hovered
+  constructor(private router: Router) { }
 
-viewChildDetails(id:number){
-  console.log('Clcked>>')
-}
+  viewChildDetails(medicalRecordId: number) {
+    console.log('Child Medical Record')
+    const navigationExtras: NavigationExtras = { state: {  medicalRecord: this.medicalRecord, childRecord: this.childRecord } };
+    this.router.navigate(['/medical-edits'], navigationExtras);
+  }
 }
