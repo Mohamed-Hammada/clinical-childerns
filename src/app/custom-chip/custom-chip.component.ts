@@ -1,16 +1,16 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output} from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {MatIconModule} from '@angular/material/icon';
-import {NgFor, AsyncPipe} from '@angular/common';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { MatIconModule } from '@angular/material/icon';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { of } from 'rxjs';
-import { debounceTime, distinctUntilChanged,catchError, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, catchError, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-custom-chip',
@@ -21,11 +21,11 @@ export class CustomChipComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
-  items: string[] = ['Lemon'];
+  items: string[] = [];
   @Input() allItems: string[] = [];
   @Input() filterFn!: (term: string) => Observable<string[]>;
   @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
-  @Output() selectedItems   = new EventEmitter<string[]>();
+  @Output() selectedItems = new EventEmitter<string[]>();
   announcer = inject(LiveAnnouncer);
 
   constructor() {
@@ -45,9 +45,10 @@ export class CustomChipComponent {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
+    debugger
     // Add our item
-    if (value) {
+    if (value && !this.items.includes(value)) {
+      this.selectedItems.emit(this.items);
       this.items.push(value);
     }
 
@@ -62,16 +63,21 @@ export class CustomChipComponent {
 
     if (index >= 0) {
       this.items.splice(index, 1);
-
+      this.selectedItems.emit(this.items);
       this.announcer.announce(`Removed ${item}`);
     }
-    this.selectedItems.emit(this.items);
+
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.items.push(event.option.viewValue);
+    debugger
+    const value = event.option.viewValue;
+    if (value && !this.items.includes(value)) {
+      this.items.push(value);
+      this.selectedItems.emit(this.items);
+    }
     this.itemInput.nativeElement.value = '';
     this.itemCtrl.setValue(null);
-    this.selectedItems.emit(this.items);
+
   }
 }
