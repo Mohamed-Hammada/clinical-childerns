@@ -25,7 +25,9 @@ import { ChildHistoryTableComponent } from './child-history-table/child-history-
 import { ChildHistoryCardsComponent } from './child-history-cards/child-history-cards.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CreateUpdateMedicalRecordComponent } from './create-update-medical-record/create-update-medical-record.component';
-import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
+import {  MatChipsModule} from '@angular/material/chips';
+import {  MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CustomChipComponent } from './custom-chip/custom-chip.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
     ChildHistoryTableComponent,
     ChildHistoryCardsComponent,
     PageNotFoundComponent,
-    CreateUpdateMedicalRecordComponent
+    CreateUpdateMedicalRecordComponent,
+    CustomChipComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,9 @@ import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
     MatDatepickerModule,
     MatCardModule,
     MatButtonToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatButtonModule,
