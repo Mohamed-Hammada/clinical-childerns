@@ -37,6 +37,8 @@ export class CreateUpdateMedicalRecordComponent {
    constructor(private route: ActivatedRoute, private router: Router,private dataService: DataService) { }
 
   ngOnInit(): void {
+
+    this.selectedSymptoms = ["Test222", "YYYYY"]
     // debugger
     console.log(this.dataService.data)
     

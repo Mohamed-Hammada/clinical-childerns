@@ -1,9 +1,9 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output , OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { map, startWith } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { NgFor, AsyncPipe } from '@angular/common';
@@ -11,18 +11,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, catchError, switchMap } from 'rxjs/operators';
-
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 @Component({
   selector: 'app-custom-chip',
   templateUrl: './custom-chip.component.html',
   styleUrls: ['./custom-chip.component.css']
 })
-export class CustomChipComponent {
+export class CustomChipComponent implements OnInit{
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
   items: string[] = [];
-  
+
+
+  @Input() filteredItemsInput: string[]=[];
 
   @Input() allItems: string[] = [];
   @Input() filterFn!: (term: string) => Observable<string[]>;
@@ -30,6 +33,8 @@ export class CustomChipComponent {
   @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
   @Output() selectedItems = new EventEmitter<string[]>();
   announcer = inject(LiveAnnouncer);
+  @ViewChild('auto') matAutocomplete!: MatAutocompleteTrigger;
+  private filteredItemsSubject = new BehaviorSubject<string[]>([]);
 
   constructor() {
     // this.filteredItems = this.itemCtrl.valueChanges.pipe(
@@ -39,11 +44,15 @@ export class CustomChipComponent {
 
     this.filteredItems = this.itemCtrl.valueChanges.pipe(
       startWith(''),
-      debounceTime(200),
+      debounceTime(300),
       distinctUntilChanged(),
       map(value => value ?? ''),
       switchMap(value => this.filterFn(value))
     );
+  }
+  ngOnInit(): void {
+   // Set the initial value from filteredItemsInput
+   this.matAutocomplete.options = this.allItems; 
   }
 
   add(event: MatChipInputEvent): void {
