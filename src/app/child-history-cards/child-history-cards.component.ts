@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router , NavigationExtras} from '@angular/router';
+import { DataService } from '../services/DataService';
 
 @Component({
   selector: 'app-child-history-cards',
@@ -30,11 +31,13 @@ export class ChildHistoryCardsComponent {
   @Input() medicalRecord: any;
   @Input() childRecord: any;
   hoverState = 'initial'; // Initial state is not hovered
-  constructor(private router: Router) { }
+  constructor(private router: Router,private dataService: DataService) { }
 
   viewChildDetails(medicalRecordId: number) {
     console.log('Child Medical Record')
     const navigationExtras: NavigationExtras = { state: {  medicalRecord: this.medicalRecord, childRecord: this.childRecord } };
-    this.router.navigate(['/medical-edits'], navigationExtras);
+    this.dataService.setData({  medicalRecord: this.medicalRecord, childRecord: this.childRecord });
+
+    this.router.navigate(['/medical-edits']);
   }
 }

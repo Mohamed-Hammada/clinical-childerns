@@ -22,8 +22,11 @@ export class CustomChipComponent {
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
   items: string[] = [];
+  
+
   @Input() allItems: string[] = [];
   @Input() filterFn!: (term: string) => Observable<string[]>;
+  @Input() palceHolderNameStrin :string = '';
   @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
   @Output() selectedItems = new EventEmitter<string[]>();
   announcer = inject(LiveAnnouncer);
@@ -36,7 +39,7 @@ export class CustomChipComponent {
 
     this.filteredItems = this.itemCtrl.valueChanges.pipe(
       startWith(''),
-      debounceTime(300),
+      debounceTime(200),
       distinctUntilChanged(),
       map(value => value ?? ''),
       switchMap(value => this.filterFn(value))

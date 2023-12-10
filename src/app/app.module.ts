@@ -28,6 +28,8 @@ import { CreateUpdateMedicalRecordComponent } from './create-update-medical-reco
 import {  MatChipsModule} from '@angular/material/chips';
 import {  MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CustomChipComponent } from './custom-chip/custom-chip.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { DataService } from './services/DataService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,8 @@ import { CustomChipComponent } from './custom-chip/custom-chip.component';
     ChildHistoryCardsComponent,
     PageNotFoundComponent,
     CreateUpdateMedicalRecordComponent,
-    CustomChipComponent
+    CustomChipComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -60,14 +63,16 @@ import { CustomChipComponent } from './custom-chip/custom-chip.component';
     MatButtonToggleModule,
     MatIconModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSidenavModule
   ],
   exports: [
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSidenavModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

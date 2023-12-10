@@ -1,9 +1,17 @@
+
+
+<div style="   
+background-color: #326a4c;
+height: 9%;
+margin: auto;display: block;"><h3 style="font-size: 50px;
+font-family: Arial, Helvetica, sans-serif;" >{{ this.childRecord?.name }}</h3></div>
+
 <app-custom-chip [filterFn]="filterFruits" (selectedItems)="selectedFruits = $event"></app-custom-chip>
 
-<app-custom-chip [filterFn]="filterSymptoms" (selectedItems)="selectedSymptoms = $event"></app-custom-chip>
-<app-custom-chip [filterFn]="filterAnalysis" (selectedItems)="selectedAnalysis = $event"></app-custom-chip>
-<app-custom-chip [filterFn]="filterXrays" (selectedItems)="selectedXrays = $event"></app-custom-chip>
-<app-custom-chip [filterFn]="filterDiagnosis" (selectedItems)="selectedDiagnosis = $event"></app-custom-chip>
-<app-custom-chip [filterFn]="filterTreatment" (selectedItems)="selectedTreatment = $event"></app-custom-chip>
+<app-custom-chip palceHolderNameStrin="Select Symptoms" [filterFn]="filterSymptoms" (selectedItems)="selectedSymptoms = $event"></app-custom-chip>
+<app-custom-chip palceHolderNameStrin="Select Analysis" [filterFn]="filterAnalysis" (selectedItems)="selectedAnalysis = $event"></app-custom-chip>
+<app-custom-chip palceHolderNameStrin="Select Xrays" [filterFn]="filterXrays" (selectedItems)="selectedXrays = $event"></app-custom-chip>
+<app-custom-chip palceHolderNameStrin="Select Diagnosis" [filterFn]="filterDiagnosis" (selectedItems)="selectedDiagnosis = $event"></app-custom-chip>
+<app-custom-chip palceHolderNameStrin="Select Treatment" [filterFn]="filterTreatment" (selectedItems)="selectedTreatment = $event"></app-custom-chip>
 
 <button mat-button type="button" (click)="submitForm()">Submit</button>

@@ -1,6 +1,6 @@
 <form>
     <mat-form-field class="example-chip-list">
-        <mat-label>Favorite Items</mat-label>
+        <mat-label>{{this.palceHolderNameStrin}}</mat-label>
         <mat-chip-grid #chipGrid aria-label="Item selection">
             <mat-chip-row *ngFor="let item of items" (removed)="remove(item)">
                 {{item}}

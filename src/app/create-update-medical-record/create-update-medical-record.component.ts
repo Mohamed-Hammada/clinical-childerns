@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
+import { DataService } from '../services/DataService';
 
 @Component({
   selector: 'app-create-update-medical-record',
@@ -30,6 +32,24 @@ export class CreateUpdateMedicalRecordComponent {
   selectedDiagnosis: string[] = [];
   selectedTreatment: string[] = [];
 
+  @Input() medicalRecord: any;
+  @Input() childRecord: any;
+   constructor(private route: ActivatedRoute, private router: Router,private dataService: DataService) { }
+
+  ngOnInit(): void {
+    // debugger
+    console.log(this.dataService.data)
+    
+    const data = this.dataService.data;
+    this.medicalRecord = data.medicalRecord;
+    this.childRecord = data.childRecord;
+
+
+    console.log('Medical Record:', this.medicalRecord);
+    console.log('Child Record:', this.childRecord);
+      // debugger
+     
+  }
 
   public filterFruits = (term: string) => {
     // Use 'this.allFruits' here
