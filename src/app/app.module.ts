@@ -35,6 +35,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +76,10 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     HttpClientModule,
     MatToolbarModule,
     MatListModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule, // Import the MatNativeDateModule here
+
   ],
   exports: [
     MatButtonModule,

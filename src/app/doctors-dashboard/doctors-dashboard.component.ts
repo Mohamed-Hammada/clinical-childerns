@@ -61,6 +61,11 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/child-history', childId]);
   }
 
+  addChildHandler(){
+    // secretary
+    this.router.navigate(['/secretary']);
+  }
+  
   // In doctors-dashboard.component.ts
 
   applyFilter(searchValue: string) {

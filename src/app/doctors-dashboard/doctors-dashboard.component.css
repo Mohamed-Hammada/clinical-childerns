@@ -13,3 +13,10 @@
 
 
 
+/* Add these styles to your component's CSS or the global styles */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* Adjust the z-index as needed */
+}
