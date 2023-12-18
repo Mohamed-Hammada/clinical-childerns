@@ -5,7 +5,7 @@
 
     <mat-card-header>
       <mat-card-title>{{ child.name }}</mat-card-title>
-      <mat-card-subtitle>{{ child.ageYears }} years, {{ child.ageDays }} days</mat-card-subtitle>
+      <mat-card-subtitle>{{ child.ageYears|| "0" }} years, {{ child.ageMonths || "0" }} months,{{ child.ageDays || "0" }} days</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <p>Last visit: {{ child.lastVisit | date }}</p>

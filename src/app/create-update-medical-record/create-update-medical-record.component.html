@@ -2,7 +2,8 @@
     <mat-card-header>
 
         <mat-card-title>{{ this.childRecord?.name }}</mat-card-title>
-        <mat-card-subtitle>{{this.childRecord?.age}}</mat-card-subtitle>
+        <mat-card-subtitle>{{ this.childRecord.ageYears|| "0" }} years, {{ this.childRecord.ageMonths || "0" }} months,{{ this.childRecord.ageDays || "0" }} days</mat-card-subtitle>
+
 
     </mat-card-header>
 
