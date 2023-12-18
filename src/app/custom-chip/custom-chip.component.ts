@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output , OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
@@ -18,18 +18,19 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
   templateUrl: './custom-chip.component.html',
   styleUrls: ['./custom-chip.component.css']
 })
-export class CustomChipComponent implements OnInit{
+export class CustomChipComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
   items: string[] = [];
 
 
-  @Input() filteredItemsInput: string[]=[];
+  @Input() filteredItemsInput: string[] = [];
 
   @Input() allItems: string[] = [];
+  @Input() inSelectedItems: string[] = [];
   @Input() filterFn!: (term: string) => Observable<string[]>;
-  @Input() palceHolderNameStrin :string = '';
+  @Input() palceHolderNameStrin: string = '';
   @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
   @Output() selectedItems = new EventEmitter<string[]>();
   announcer = inject(LiveAnnouncer);
@@ -51,13 +52,18 @@ export class CustomChipComponent implements OnInit{
     );
   }
   ngOnInit(): void {
-   // Set the initial value from filteredItemsInput
-   this.matAutocomplete.options = this.allItems; 
+    // Set the initial value from filteredItemsInput
+    //  this.matAutocomplete.options = this.allItems; 
+    if (this.inSelectedItems && this.inSelectedItems.length > 0) {
+      for (let i = 0; i < this.inSelectedItems.length; i++) { 
+        this.items.push(this.inSelectedItems[i]);
+      }
+    }
   }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    debugger
+    // debugger
     // Add our item
     if (value && !this.items.includes(value)) {
       this.selectedItems.emit(this.items);
@@ -82,7 +88,7 @@ export class CustomChipComponent implements OnInit{
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    debugger
+    // debugger
     const value = event.option.viewValue;
     if (value && !this.items.includes(value)) {
       this.items.push(value);

@@ -1,16 +1,25 @@
-<div></div>
-<div style="   
-background-color: #326a4c;
-height: 9%;
-margin: auto;display: block;"><h3 style="font-size: 50px;
-font-family: Arial, Helvetica, sans-serif;" >{{ this.childRecord?.name }}</h3></div>
+<mat-card>
+    <mat-card-header>
 
-<app-custom-chip [filterFn]="filterFruits" (selectedItems)="selectedFruits = $event"></app-custom-chip>
+        <mat-card-title>{{ this.childRecord?.name }}</mat-card-title>
+        <mat-card-subtitle>{{this.childRecord?.age}}</mat-card-subtitle>
 
-<app-custom-chip palceHolderNameStrin="Symptoms" [filteredItemsInput]="selectedSymptoms" [filterFn]="filterSymptoms" (selectedItems)="selectedSymptoms = $event"></app-custom-chip>
-<app-custom-chip palceHolderNameStrin="Analysis" [filteredItemsInput]="selectedAnalysis"  [filterFn]="filterAnalysis" (selectedItems)="selectedAnalysis = $event"></app-custom-chip>
-<app-custom-chip palceHolderNameStrin="Xrays" [filteredItemsInput]="selectedXrays"  [filterFn]="filterXrays" (selectedItems)="selectedXrays = $event"></app-custom-chip>
-<app-custom-chip palceHolderNameStrin="Diagnosis" [filteredItemsInput]="selectedDiagnosis"  [filterFn]="filterDiagnosis" (selectedItems)="selectedDiagnosis = $event"></app-custom-chip>
-<app-custom-chip palceHolderNameStrin="Treatment" [filteredItemsInput]="selectedTreatment"  [filterFn]="filterTreatment" (selectedItems)="selectedTreatment = $event"></app-custom-chip>
+    </mat-card-header>
 
-<button mat-button type="button" (click)="submitForm()">Submit</button>
+    <mat-card-content>
+        <app-custom-chip palceHolderNameStrin="Symptoms" [filteredItemsInput]="selectedSymptoms"
+            [filterFn]="filterSymptoms" (selectedItems)="selectedSymptoms = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Analysis" [filteredItemsInput]="selectedAnalysis"
+            [filterFn]="filterAnalysis" (selectedItems)="selectedAnalysis = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Xrays" [filteredItemsInput]="selectedXrays" [filterFn]="filterXrays"
+            (selectedItems)="selectedXrays = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Diagnosis" [filteredItemsInput]="selectedDiagnosis"
+            [filterFn]="filterDiagnosis" (selectedItems)="selectedDiagnosis = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Treatment" [filteredItemsInput]="selectedTreatment"
+            [filterFn]="filterTreatment" (selectedItems)="selectedTreatment = $event"></app-custom-chip>
+      </mat-card-content>  
+    <mat-card-actions>
+
+        <button color="primary" mat-raised-button type="button" (click)="submitForm()">Submit</button>
+    </mat-card-actions>
+</mat-card>
