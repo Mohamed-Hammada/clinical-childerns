@@ -30,6 +30,7 @@ import {  MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CustomChipComponent } from './custom-chip/custom-chip.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { DataService } from './services/DataService';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { DataService } from './services/DataService';
     MatIconModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatSidenavModule
+    MatSidenavModule,
+    HttpClientModule
   ],
   exports: [
     MatButtonModule,

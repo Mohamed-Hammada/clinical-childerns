@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, Observable } from 'rxjs';
+import { of, Observable ,  map } from 'rxjs';
 import { DataService } from '../services/DataService';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-update-medical-record',
@@ -11,7 +13,7 @@ import { DataService } from '../services/DataService';
 
 })
 export class CreateUpdateMedicalRecordComponent {
-
+  private baseUrl = environment.apiUrl;
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   // Symptoms  
   symptoms: string[] = ['Fever', 'Cough', 'Headache', 'Rash', 'Fatigue', 'Nausea', 'Sore Throat', 'Shortness of Breath', 'Muscle Aches', 'Joint Pain', 'Dizziness', 'Loss of Appetite', 'Abdominal Pain', 'Vomiting', 'Diarrhea', 'Swollen Lymph Nodes', 'Chills', 'Difficulty Swallowing', 'Chest Pain',];
@@ -35,7 +37,7 @@ export class CreateUpdateMedicalRecordComponent {
 
   @Input() medicalRecord: any;
   @Input() childRecord: any;
-  constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService, private http: HttpClient) { }
 
   ngOnInit(): void {
     // debugger
@@ -52,19 +54,53 @@ export class CreateUpdateMedicalRecordComponent {
 
   }
 
-  public filterFruits = (term: string) => {
-    // Use 'this.allFruits' here
-    // return this.http.get<string[]>('https://jsonplaceholder.typicode.com/todos', { 
-    //   params: { term } 
-    // });
-    // debugger
-    return of(this.allFruits);
+ 
+  public filterSymptoms = (term: string) => {
+    return this.http.get<any>(`${this.baseUrl}/api/symptoms/symptoms`, {
+      params: { term }
+    }).pipe(
+      map(response => response.content.map((symptom: {name: string})  => symptom.name))
+    );
   }
-  public filterSymptoms = (term: string) => { return of(this.symptoms); }
-  public filterAnalysis = (term: string) => { return of(this.analysis); }
-  public filterXrays = (term: string) => { return of(this.xrays); }
-  public filterDiagnosis = (term: string) => { return of(this.diagnosis); }
-  public filterTreatment = (term: string) => { return of(this.treatment); }
+  public filterAnalysis = (term: string): Observable<string[]> => {
+    const params = new HttpParams().set('term', term);
+
+    return this.http.get<any>(`${this.baseUrl}/api/analysis/analysis`, {
+      params
+    }).pipe(
+      map(response => response.content.map((item: {name: string}) => item.name))
+    );
+  }
+
+  public filterXrays = (term: string): Observable<string[]> => {
+    const params = new HttpParams().set('term', term);
+
+    return this.http.get<any>(`${this.baseUrl}/api/xrays/xrays`, {
+      params
+    }).pipe(
+      map(response => response.content.map((item:  {name: string}) => item.name))
+    );
+  }
+
+  public filterDiagnosis = (term: string): Observable<string[]> => {
+    const params = new HttpParams().set('term', term);
+
+    return this.http.get<any>(`${this.baseUrl}/api/diagnosis/diagnosis`, {
+      params
+    }).pipe(
+      map(response => response.content.map((item:  {name: string}) => item.name))
+    );
+  }
+
+  public filterTreatment = (term: string): Observable<string[]> => {
+    const params = new HttpParams().set('term', term);
+
+    return this.http.get<any>(`${this.baseUrl}/api/treatment/treatment`, {
+      params
+    }).pipe(
+      map(response => response.content.map((item:  {name: string}) => item.name))
+    );
+  }
 
   submitForm() {
     // Log the selected values for each array
@@ -85,6 +121,6 @@ export class CreateUpdateMedicalRecordComponent {
       target.style.height = (target.scrollHeight + 25) + "px";
     }
   }
-  
-  
+
+
 }
