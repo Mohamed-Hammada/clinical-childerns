@@ -31,17 +31,16 @@ export class CreateUpdateMedicalRecordComponent {
   selectedXrays: string[] = [];
   selectedDiagnosis: string[] = [];
   selectedTreatment: string[] = [];
+  notes: string = '';
 
   @Input() medicalRecord: any;
   @Input() childRecord: any;
-   constructor(private route: ActivatedRoute, private router: Router,private dataService: DataService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
-
-    this.selectedSymptoms = ["Test222", "YYYYY"]
     // debugger
     console.log(this.dataService.data)
-    
+
     const data = this.dataService.data;
     this.medicalRecord = data.medicalRecord;
     this.childRecord = data.childRecord;
@@ -49,8 +48,8 @@ export class CreateUpdateMedicalRecordComponent {
 
     console.log('Medical Record:', this.medicalRecord);
     console.log('Child Record:', this.childRecord);
-      // debugger
-     
+    // debugger
+
   }
 
   public filterFruits = (term: string) => {
@@ -69,15 +68,23 @@ export class CreateUpdateMedicalRecordComponent {
 
   submitForm() {
     // Log the selected values for each array
-    console.log('Selected Fruits:', this.selectedFruits);
     console.log('Selected Symptoms:', this.selectedSymptoms);
     console.log('Selected Analysis:', this.selectedAnalysis);
     console.log('Selected X-rays:', this.selectedXrays);
     console.log('Selected Diagnosis:', this.selectedDiagnosis);
     console.log('Selected Treatment:', this.selectedTreatment);
+    console.log('Notes:', this.notes);
 
     // Add more logic here if needed, such as sending data to a server or other actions.
   }
 
-
+  autoGrowTextZone(e: Event) {
+    const target = (e as any)?.target as HTMLElement | undefined;
+    if (target) {
+      target.style.height = "0px";
+      target.style.height = (target.scrollHeight + 25) + "px";
+    }
+  }
+  
+  
 }
