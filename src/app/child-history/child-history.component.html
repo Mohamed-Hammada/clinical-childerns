@@ -17,7 +17,7 @@
                           
 <div style="display: flex; flex-wrap: wrap;" *ngIf="isCardView">
     <div *ngFor="let medicalRecord of medicalRecords">
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, 400px); gap: 5px; height: 100%;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, 490px); gap: 5px; height: 100%;">
             <app-child-history-cards [childRecord]="currentChild" [medicalRecord]="medicalRecord"  style="margin: 5px;"></app-child-history-cards>
         </div>
     </div>
