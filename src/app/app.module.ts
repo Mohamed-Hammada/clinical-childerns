@@ -31,6 +31,10 @@ import { CustomChipComponent } from './custom-chip/custom-chip.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { DataService } from './services/DataService';
 import { HttpClientModule } from '@angular/common/http';
+import { NavigationComponent } from './navigation/navigation.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     PageNotFoundComponent,
     CreateUpdateMedicalRecordComponent,
     CustomChipComponent,
+    NavigationComponent,
     
   ],
   imports: [
@@ -66,7 +71,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatChipsModule,
     MatAutocompleteModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatListModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatButtonModule,
