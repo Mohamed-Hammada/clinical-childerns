@@ -58,8 +58,9 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
       .set('term', searchValue?.toString() || '');
       this.http.get<any>(this.baseUrl + "/api/child/children", { params }).pipe(
         catchError((error:any) => {
+          debugger
           console.error('Error Message: ', error);
-          this.showErrorNotification('Form submission failed');
+          this.showErrorNotification(  error.error.detail);
           return throwError(error);
         })
       ).subscribe(
@@ -82,7 +83,8 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          this.showErrorNotification('Form submission failed');
+          debugger
+          this.showErrorNotification(error.error.detail);
         }
       );
       

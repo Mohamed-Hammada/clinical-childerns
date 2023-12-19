@@ -50,7 +50,7 @@ export class SecretaryPageComponent implements OnInit{
           (error) => {
             // Handle error
             console.error('Error: ', error);
-            this.showErrorNotification('Form submission failed');
+            this.showErrorNotification(error.error.detail);
           }
         );
     }

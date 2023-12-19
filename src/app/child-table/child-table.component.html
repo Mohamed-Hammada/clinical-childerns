@@ -1,21 +1,54 @@
-<table id="tablestyle">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Last Visit</th>
-        <th>Days Since Last Visit</th>
-        <th>Diagnosis</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let child of childRecords" (click)="viewChildDetails(child.id)" class="elements-row">
-        <td>{{ child.name }}</td>
-        <td>{{ child.ageYears }} years, {{ child.ageDays }} days</td>
-        <td>{{ child.lastVisit | date }}</td>
-        <td>{{ child.daysSinceLastVisit }}</td>
-        <td>{{ child.latestDiagnosis }}</td>
-      </tr>
-    </tbody>
-  </table>
-  
+<mat-table [dataSource]="childRecords" class="mat-elevation-z8">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let child" (click)="viewChildDetails(child.id)" class="elements-row">
+      <mat-icon style="position: relative;color: rgb(175, 172, 172);">person</mat-icon>
+      {{ child.name }}</mat-cell>
+  </ng-container>
+
+  <!-- Age Column -->
+  <ng-container matColumnDef="age">
+    <mat-header-cell *matHeaderCellDef>Age</mat-header-cell>
+    <mat-cell *matCellDef="let child">
+      <mat-icon>cake</mat-icon>
+      {{ child.age_years || "0" }} years, {{ child.age_months || "0" }} months, {{ child.age_days || "0" }} days
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last Visit Column -->
+  <ng-container matColumnDef="lastVisit">
+    <mat-header-cell *matHeaderCellDef>Last Visit</mat-header-cell>
+    <mat-cell *matCellDef="let child">
+      <mat-icon style="position: relative; color: rgb(194, 192, 192);">access_time</mat-icon>
+      {{ child.last_visit_date | date }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Days Since Last Visit Column -->
+  <ng-container matColumnDef="daysSinceLastVisit">
+    <mat-header-cell *matHeaderCellDef>Days Since Last Visit</mat-header-cell>
+    <mat-cell *matCellDef="let child">{{ child.days_since_last_visit }}</mat-cell>
+  </ng-container>
+
+  <!-- Telephone Column -->
+  <ng-container matColumnDef="telephone">
+    <mat-header-cell *matHeaderCellDef>Telephone</mat-header-cell>
+    <mat-cell *matCellDef="let child">
+      <mat-icon>phone</mat-icon>{{ child.telephone }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Address Column -->
+  <ng-container matColumnDef="address">
+    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+    <mat-cell *matCellDef="let child">
+      <mat-icon>location_on</mat-icon>{{ child.address }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Define the table rows using matRowDef -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="viewChildDetails(row.id)" class="elements-row"></mat-row>
+</mat-table>

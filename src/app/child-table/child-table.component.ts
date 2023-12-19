@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 export class ChildTableComponent {
   @Input() childRecords!: any[]; // Replace 'any' with your actual data type
   @Output() selectChild = new EventEmitter<number>();
+  displayedColumns: string[] = ['name', 'age', 'lastVisit', 'daysSinceLastVisit', 'telephone', 'address'];
+
   constructor(private router: Router) { }
   viewChildDetails(childId: number) {
     this.selectChild.emit(childId);

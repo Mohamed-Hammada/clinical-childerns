@@ -1,0 +1,22 @@
+.mat-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .mat-header-row {
+    display: none; 
+  }
+  
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+    border-bottom: 1px solid #e0e0e0; 
+  }
+  
+  .mat-cell { 
+    min-width: unset;
+    padding: 2px 0;
+    font-size: 14px;
+  }
