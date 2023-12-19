@@ -6,14 +6,26 @@
     <mat-card-header>
       <mat-card-title> <mat-icon style="position: relative; top: 7px;color: #FF4081;">person</mat-icon> {{ child.name }}</mat-card-title>
       <mat-card-subtitle>
-        
-        {{ child.age_years|| "0" }} years, {{ child.age_months || "0" }} months,{{ child.age_days || "0" }} days</mat-card-subtitle>
-    </mat-card-header>
+        {{ child.age_years || "0" }} years
+        <mat-icon style="color: #FF4081; font-size: 16px; vertical-align: middle;">event</mat-icon> 
+        {{ child.age_months || "0" }} months
+        <mat-icon style="color: #4CAF50; font-size: 16px; vertical-align: middle;">date_range</mat-icon> 
+        {{ child.age_days || "0" }} days
+        <mat-icon style="color: #2196F3; font-size: 16px; vertical-align: middle;">access_time</mat-icon> 
+      </mat-card-subtitle>
+      
+      
+          </mat-card-header>
     <mat-card-content>
       <p>
  
       <!-- Last visit: {{ child.last_visit_date | date }}  -->
-      <button mat-button>{{ child.last_visit_date | date }} </button>
+   
+      <button mat-button>
+        {{ child.last_visit_date | date }}
+        <mat-icon style="font-size: 14px; vertical-align: middle; margin-left: 4px;">event</mat-icon>
+      </button>
+      
       <!-- <span class="gray-circle">{{ child.days_since_last_visit }}</span> -->
       <button mat-mini-fab disabled>
         {{ child.days_since_last_visit }}
