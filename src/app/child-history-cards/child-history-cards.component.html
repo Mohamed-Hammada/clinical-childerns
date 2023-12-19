@@ -4,10 +4,10 @@
 
 
   <mat-card-header>
-    <!-- Assuming you have a method to get the child's name from the ID or the name is included in the record -->
-    <!-- <mat-card-title>{{ childRecord.name }}</mat-card-title> -->
-    <!-- You'll need to calculate ageYears and ageDays from the child's birthdate -->
-    <mat-card-subtitle>{{ childRecord.ageYears }} years, {{ childRecord.ageDays }} days</mat-card-subtitle>
+    <mat-card-title> <mat-icon style="position: relative; top: 7px;color: rgb(175, 172, 172);">person</mat-icon> {{ childRecord.name }}</mat-card-title>
+    <mat-card-subtitle>
+      
+      {{ childRecord.age_years|| "0" }} years, {{ childRecord.age_months || "0" }} months,{{ childRecord.age_days || "0" }} days</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
