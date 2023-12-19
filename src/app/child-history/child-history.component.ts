@@ -25,7 +25,7 @@ export class ChildHistoryComponent {
   totalRecords: number = -1;
   childId: string | null = '';
   currentChildId: number = -1;
-  currentChild!: Child;
+  currentChild!: any;
   medicalRecords: any[] = [];
   private baseUrl = environment.apiUrl;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
@@ -38,7 +38,7 @@ export class ChildHistoryComponent {
     private changeDetectorRef: ChangeDetectorRef, private http: HttpClient,private dataService: DataService) { }
 
   ngOnInit() {
-    debugger
+    //debugger
     const data = this.dataService.data;
     this.currentChild = data.childRecord;
     this.childId = data.childRecord.id
@@ -63,7 +63,7 @@ export class ChildHistoryComponent {
       .set('size', this.pageSize.toString());
     this.http.get<any>(this.baseUrl + `/api/visit-history/child/${this.childId}`, { params }).pipe(
       catchError((error: any) => {
-        debugger
+        //debugger
         console.error('Error Message: ', error);
         this.showErrorNotification(error.error.detail);
         return throwError(error);
@@ -88,7 +88,7 @@ export class ChildHistoryComponent {
         }
       },
       error => {
-        debugger
+       // debugger
         this.showErrorNotification(error.error.detail);
       }
     );

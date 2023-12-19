@@ -58,7 +58,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
       .set('term', this.searchValue?.toString() || '');
       this.http.get<any>(this.baseUrl + "/api/child/children", { params }).pipe(
         catchError((error:any) => {
-          debugger
+         // debugger
           console.error('Error Message: ', error);
           this.showErrorNotification(  error.error.detail);
           return throwError(error);
@@ -83,7 +83,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          debugger
+        //  debugger
           this.showErrorNotification(error.error.detail);
         }
       );
@@ -103,7 +103,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   viewChildDetails(child: any) {
     // Implementation to view child details
     // Could involve navigating to a new route or opening a modal
-    debugger
+    // debugger
     console.log('Navigating to details for child:', child.name);
     this.dataService.setData({  childRecord: child });
 

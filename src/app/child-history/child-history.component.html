@@ -1,7 +1,23 @@
 <!-- <app-view-toggle [ngModel]="isCardView" (viewModeChange)="toggleView($event)"></app-view-toggle> -->
- 
-<h2 style="margin: 10px;">{{currentChild.name}}</h2>
-
+ <div style="margin: 10px;">
+    <h2>
+        <mat-icon style="color: #4CAF50;">account_circle</mat-icon>
+        {{ currentChild.name }}
+      </h2>
+      
+      <h3>
+        <mat-icon style="color: #FF4081;">location_on</mat-icon>
+        {{ currentChild.address }}
+      </h3>
+    <p>
+      <mat-icon style="position: relative; top: 3px; color: #FF4081;">event</mat-icon>
+      {{ currentChild.age_years || "0" }} years,
+      <mat-icon style="position: relative; top: 3px; color: #4CAF50;">date_range</mat-icon>
+      {{ currentChild.age_months || "0" }} months,
+      <mat-icon style="position: relative; top: 3px; color: #2196F3;">access_time</mat-icon>
+      {{ currentChild.age_days || "0" }} days
+    </p>
+</div>
 <!-- <div class="search-div" style="display: flex; align-items: center;">
     <mat-form-field  style="flex: 1;" appearance="outline">
         <mat-label>Search for a child...</mat-label>

@@ -1,54 +1,75 @@
-<!-- Example of a child card -->
 <mat-card [@hoverAnimation]="hoverState" (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'"
   (click)="viewChildDetails(medicalRecord.id)">
 
-
   <mat-card-header>
-    <!-- <mat-card-title> <mat-icon style="position: relative; top: 7px;color: rgb(175, 172, 172);">person</mat-icon> {{ childRecord.name }}</mat-card-title> -->
-    <mat-card-subtitle>
-      
-      {{ childRecord.age_years|| "0" }} years, {{ childRecord.age_months || "0" }} months,{{ childRecord.age_days || "0" }} days</mat-card-subtitle>
+    <!-- <mat-card-subtitle>
+      <mat-icon style="position: relative; top: 3px; color: #FF4081;">event</mat-icon>
+      {{ childRecord.age_years || "0" }} years,
+      <mat-icon style="position: relative; top: 3px; color: #4CAF50;">date_range</mat-icon>
+      {{ childRecord.age_months || "0" }} months,
+      <mat-icon style="position: relative; top: 3px; color: #2196F3;">access_time</mat-icon>
+      {{ childRecord.age_days || "0" }} days
+    </mat-card-subtitle> -->
   </mat-card-header>
-  <mat-card-content>
 
-    <p>Visit Date: {{ medicalRecord.visit_date | date }}</p>
-    <!-- Assuming you have a method to calculate days since the last visit -->
-    <p>Days since previous visit: {{
-      childRecord.days_since_last_visit }}</p>
+  <mat-card-content>
+    <!-- <p>Visit Date: {{ medicalRecord.visit_date | date }}</p>
+    <p>Days since previous visit: {{ childRecord.days_since_last_visit }}</p> -->
+
+    <p>
  
-  
+      <!-- Last visit: {{ child.last_visit_date | date }}  -->
+   
+      <button mat-button>
+      Visit Date:  {{ medicalRecord.visit_date | date }}
+        <mat-icon style="font-size: 14px; vertical-align: middle; margin-left: 4px;">event</mat-icon>
+      </button>
+      
+      <!-- <span class="gray-circle">{{ child.days_since_last_visit }}</span> -->
+      <button mat-mini-fab disabled>
+        {{ childRecord.days_since_last_visit }}
+      </button>
+    </p>
     <!-- Add more details as needed -->
 
-    <div class="symptom-tags">
+    <div class="symptom-tags" *ngIf="medicalRecord.analysis_names && medicalRecord.analysis_names.length > 0">
+      Analysis: 
       <ng-container *ngFor="let value of medicalRecord.analysis_names">
-        <p class="tag">{{value}}</p>
+        <p class="tag" style="background-color: #FFC107; color: #fff;">{{value}}</p>
       </ng-container>
     </div>
- 
-    <div class="symptom-tags">
+
+    <div class="symptom-tags"  *ngIf="medicalRecord.symptoms_names && medicalRecord.symptoms_names.length > 0">
+      Symptoms: 
       <ng-container *ngFor="let value of medicalRecord.symptoms_names">
-        <p class="tag2">{{value}}</p>
+        <p class="tag2" style="background-color: #FF4081; color: #fff;">{{value}}</p>
       </ng-container>
     </div>
 
-    <div class="symptom-tags">
+    <div class="symptom-tags" *ngIf="medicalRecord.diagnosis_names && medicalRecord.diagnosis_names.length > 0">
+      Diagnosis:
       <ng-container *ngFor="let value of medicalRecord.diagnosis_names">
-        <p class="tag">{{value}}</p>
+        <p class="tag" style="background-color: #4CAF50; color: #fff;"> {{value}}</p>
       </ng-container>
     </div>
 
-    <div class="symptom-tags">
+    <div class="symptom-tags" *ngIf="medicalRecord.treatment_names && medicalRecord.treatment_names.length > 0">
+      Treatments:
       <ng-container *ngFor="let value of medicalRecord.treatment_names">
-        <p class="tag2">{{value}}</p>
+       
+        <p class="tag2" style="background-color: #2196F3; color: #fff;"> {{value}}</p>
       </ng-container>
     </div>
 
-    <div class="symptom-tags">
+    <div class="symptom-tags" *ngIf="medicalRecord.xrays_names && medicalRecord.xrays_names.length > 0">
+      X-Rays:
       <ng-container *ngFor="let value of medicalRecord.xrays_names">
-        <p class="tag">{{value}}</p>
+        <p class="tag" style="background-color: #607D8B; color: #fff;"> {{value}}</p>
       </ng-container>
     </div>
-    <p>Notes: {{ medicalRecord.note }}</p>
+    <div *ngIf="medicalRecord.note">
+      <p>Notes: {{ medicalRecord.note }}</p>
+    </div>
+    
   </mat-card-content>
- 
 </mat-card>

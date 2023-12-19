@@ -36,7 +36,7 @@ export class CreateUpdateMedicalRecordComponent {
     const data = this.dataService.data;
     this.medicalRecord = data.medicalRecord;
     this.childRecord = data.childRecord;
-    debugger
+    // debugger
     if (this.medicalRecord) {
       this.symptoms_names = this.medicalRecord.symptoms_names;
       this.analysis_names = this.medicalRecord.analysis_names;
