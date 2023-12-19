@@ -15,26 +15,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateUpdateMedicalRecordComponent {
   private baseUrl = environment.apiUrl;
-  // allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-  // // Symptoms  
-  // symptoms: string[] = ['Fever', 'Cough', 'Headache', 'Rash', 'Fatigue', 'Nausea', 'Sore Throat', 'Shortness of Breath', 'Muscle Aches', 'Joint Pain', 'Dizziness', 'Loss of Appetite', 'Abdominal Pain', 'Vomiting', 'Diarrhea', 'Swollen Lymph Nodes', 'Chills', 'Difficulty Swallowing', 'Chest Pain',];
-  // // Analysis  
-  // analysis: string[] = ['Blood Test', 'MRI', 'X-ray', 'Ultrasound', 'CT Scan', 'Electrocardiogram (ECG or EKG)', 'Biopsy', 'Endoscopy', 'Colonoscopy', 'Lumbar Puncture', 'Allergy Tests', 'Thyroid Function Tests', 'Pulmonary Function Tests', 'Bone Density Test', 'Genetic Testing', 'Urine Test', 'Stool Test',];
-  // // X-rays  
-  // xrays: string[] = ['Chest X-ray', 'Abdominal X-ray', 'Dental X-ray', 'Bone X-ray', 'Spine X-ray', 'Pelvic X-ray', 'Hand X-ray', 'Foot X-ray', 'Joint X-ray', 'Skull X-ray', 'Sinus X-ray', 'Knee X-ray', 'Shoulder X-ray', 'Wrist X-ray', 'Ankle X-ray',];
-  // // Diagnosis  
-  // diagnosis: string[] = ['Common Cold', 'Flu', 'Allergies', 'Ear Infection', 'Strep Throat', 'Pneumonia', 'Bronchitis', 'Asthma', 'Diabetes', 'Hypertension', 'Migraine', 'Depression', 'Anxiety', 'Gastroenteritis', 'Arthritis', 'Osteoporosis', 'Cancer', 'Autoimmune Diseases', 'Thyroid Disorders',];
-  // // Treatment  
-  // treatment: string[] = ['Antibiotics', 'Pain Relievers', 'Rest', 'Physical Therapy', 'Surgery', 'Chemotherapy', 'Radiation Therapy', 'Immunotherapy', 'Counseling', 'Medication Management', 'Lifestyle Changes', 'Dietary Changes', 'Hydration', 'Braces or Splints', 'Oxygen Therapy', 'Psychological Therapy', 'Alternative Medicine',];
-
   id: string | null  = null;
-  selectedFruits: string[] = [];
+ 
 
-  selectedSymptoms: string[] = [];
-  selectedAnalysis: string[] = [];
-  selectedXrays: string[] = [];
-  selectedDiagnosis: string[] = [];
-  selectedTreatment: string[] = [];
+  symptoms_names: string[] = [];
+  analysis_names: string[] = [];
+  xrays_names: string[] = [];
+  diagnosis_names: string[] = [];
+  treatment_names: string[] = [];
   notes: string = '';
 
   @Input() medicalRecord: any;
@@ -48,6 +36,15 @@ export class CreateUpdateMedicalRecordComponent {
     const data = this.dataService.data;
     this.medicalRecord = data.medicalRecord;
     this.childRecord = data.childRecord;
+    debugger
+    if (this.medicalRecord) {
+      this.symptoms_names = this.medicalRecord.symptoms_names;
+      this.analysis_names = this.medicalRecord.analysis_names;
+      this.xrays_names = this.medicalRecord.xrays_names;
+      this.diagnosis_names = this.medicalRecord.diagnosis_names;
+      this.treatment_names = this.medicalRecord.treatment_names;
+      this.notes = this.medicalRecord.note;
+    }
 
 
     console.log('Medical Record:', this.medicalRecord);
@@ -118,17 +115,17 @@ export class CreateUpdateMedicalRecordComponent {
   submitForm() {
     // Log the selected values for each array
     console.log('Selected Symptoms:', this.id);
-    console.log('Selected Symptoms:', this.selectedSymptoms);
-    console.log('Selected Analysis:', this.selectedAnalysis);
-    console.log('Selected X-rays:', this.selectedXrays);
-    console.log('Selected Diagnosis:', this.selectedDiagnosis);
-    console.log('Selected Treatment:', this.selectedTreatment);
+    console.log('Selected Symptoms:', this.symptoms_names);
+    console.log('Selected Analysis:', this.analysis_names);
+    console.log('Selected X-rays:', this.xrays_names);
+    console.log('Selected Diagnosis:', this.diagnosis_names);
+    console.log('Selected Treatment:', this.treatment_names);
     console.log('Notes:', this.notes);
 
     const obj = {id:this.id, child_id: this.childRecord.id ,
-       analysis_names: this.selectedAnalysis , symptoms_names:this.selectedSymptoms,
-       xrays_names: this.selectedXrays , diagnosis_names: this.selectedDiagnosis ,
-        treatment_names : this.selectedTreatment , note : this.notes }
+       analysis_names: this.analysis_names , symptoms_names:this.symptoms_names,
+       xrays_names: this.xrays_names , diagnosis_names: this.diagnosis_names ,
+        treatment_names : this.treatment_names , note : this.notes }
        this.http.post<any>(`${this.baseUrl}/api/visit-history/submit-or-update`, obj)
         .subscribe(
           (response) => {

@@ -8,16 +8,16 @@
     </mat-card-header>
 
     <mat-card-content>
-        <app-custom-chip palceHolderNameStrin="Symptoms" [filteredItemsInput]="selectedSymptoms"
-            [filterFn]="filterSymptoms" (selectedItems)="selectedSymptoms = $event"></app-custom-chip>
-        <app-custom-chip palceHolderNameStrin="Analysis" [filteredItemsInput]="selectedAnalysis"
-            [filterFn]="filterAnalysis" (selectedItems)="selectedAnalysis = $event"></app-custom-chip>
-        <app-custom-chip palceHolderNameStrin="Xrays" [filteredItemsInput]="selectedXrays" [filterFn]="filterXrays"
-            (selectedItems)="selectedXrays = $event"></app-custom-chip>
-        <app-custom-chip palceHolderNameStrin="Diagnosis" [filteredItemsInput]="selectedDiagnosis"
-            [filterFn]="filterDiagnosis" (selectedItems)="selectedDiagnosis = $event"></app-custom-chip>
-        <app-custom-chip palceHolderNameStrin="Treatment" [filteredItemsInput]="selectedTreatment"
-            [filterFn]="filterTreatment" (selectedItems)="selectedTreatment = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Symptoms" [filteredItemsInput]="symptoms_names"
+            [filterFn]="filterSymptoms" (selectedItems)="symptoms_names = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Analysis" [filteredItemsInput]="analysis_names"
+            [filterFn]="filterAnalysis" (selectedItems)="analysis_names = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Xrays" [filteredItemsInput]="xrays_names" [filterFn]="filterXrays"
+            (selectedItems)="xrays_names = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Diagnosis" [filteredItemsInput]="diagnosis_names"
+            [filterFn]="filterDiagnosis" (selectedItems)="diagnosis_names = $event"></app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Treatment" [filteredItemsInput]="treatment_names"
+            [filterFn]="filterTreatment" (selectedItems)="treatment_names = $event"></app-custom-chip>
       
         <mat-form-field style="width: 100%;">
             <textarea  matInput placeholder="Notes" (keyup)="autoGrowTextZone($event)" [(ngModel)]="notes"></textarea>

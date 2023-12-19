@@ -54,9 +54,10 @@ export class CustomChipComponent implements OnInit {
   ngOnInit(): void {
     // Set the initial value from filteredItemsInput
     //  this.matAutocomplete.options = this.allItems; 
-    if (this.inSelectedItems && this.inSelectedItems.length > 0) {
-      for (let i = 0; i < this.inSelectedItems.length; i++) { 
-        this.items.push(this.inSelectedItems[i]);
+    debugger
+    if (this.filteredItemsInput && this.filteredItemsInput.length > 0) {
+      for (let i = 0; i < this.filteredItemsInput.length; i++) { 
+        this.items.push(this.filteredItemsInput[i]);
       }
     }
   }

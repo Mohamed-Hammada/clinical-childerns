@@ -166,7 +166,7 @@ export class ChildHistoryComponent {
 
   
   addChildVisitHandler() {
-    // secretary
+    this.dataService.setData({childRecord: this.currentChild});
     this.router.navigate(['/medical-edits']);
   }
   // Helper method to show success notification
