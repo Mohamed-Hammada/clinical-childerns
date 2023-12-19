@@ -1,11 +1,11 @@
 <!-- <app-view-toggle [ngModel]="isCardView" (viewModeChange)="toggleView($event)"></app-view-toggle>
  -->
 
-<div class="search-div" style="display: flex; align-items: center;">
-    <mat-form-field  style="flex: 1;" appearance="outline">
+<div class="search-div" style="display: flex; align-items: center;border-radius: 30%;">
+    <mat-form-field  style="flex: 1;border-radius: 30%;" appearance="outline">
         <mat-label>Search for a child...</mat-label>
-        <input matInput (keyup)="applyFilter($any($event.target).value)">
-        <mat-icon style=" position: relative; top: 7px;color: rgb(194, 192, 192);" matPrefix>search</mat-icon>
+        <input style="border-radius: 30%;" matInput (keyup)="applyFilter($any($event.target).value)">
+        <mat-icon style=" position: relative;color: rgb(194, 192, 192);" matPrefix>search</mat-icon>
 
     </mat-form-field>
 </div>

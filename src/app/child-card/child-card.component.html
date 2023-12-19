@@ -1,7 +1,7 @@
 <!-- Example of a child card -->
 <mat-card [@hoverAnimation]="hoverState" 
 (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'"
-(click)="viewChildDetails(child.id)">
+(click)="viewChildDetails(child.id)" >
 
     <mat-card-header>
       <mat-card-title> <mat-icon style="position: relative; top: 7px;color: rgb(175, 172, 172);">person</mat-icon> {{ child.name }}</mat-card-title>
