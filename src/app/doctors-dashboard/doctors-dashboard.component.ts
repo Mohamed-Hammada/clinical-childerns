@@ -3,7 +3,13 @@ import { DummyDataService } from '../services/dummy-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-
+import { of, Observable, map ,tap} from 'rxjs';
+import { DataService } from '../services/DataService';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-doctors-dashboard',
   templateUrl: './doctors-dashboard.component.html',
@@ -11,40 +17,78 @@ import { Router } from '@angular/router';
 })
 export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
 
-  currentPage: number = 1;
+  currentPage: number = 0;
   totalPages: number = -1;
   pageSize: number = 5;
-  pageSizeOptions: number[] = [5,10,15,20,50,100,200,500];
+  pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
-
+  private baseUrl = environment.apiUrl;
   childRecords: any[] = [];
+  searchValue:string='';
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   isCardView: boolean = true; // Default to card view
   displayedColumns: string[] = ['id', 'name', 'diagnosis', 'lastVisit'];
-  
-  constructor(private dummyDataService: DummyDataService,
-    private changeDetectorRef: ChangeDetectorRef,private router: Router) { }
+
+  constructor(private snackBar: MatSnackBar,
+    private changeDetectorRef: ChangeDetectorRef, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
- 
+    
     this.isCardView = sessionStorage.getItem('preferredView') !== 'table';
+    this.loadData(this.searchValue);
 
   }
 
   ngAfterViewInit() {
-    this.dummyDataService.getChildRecords().subscribe(data => {
-      this.childRecords = data;
-      this.paginator.length = data.length;
-      this.changeDetectorRef.detectChanges(); // Trigger change detection
-      this.paginator._intl.itemsPerPageLabel = ''; // Now set the paginator label
-    });
+    // this.dummyDataService.getChildRecords().subscribe(data => {
+    //   this.childRecords = data;
+    //   this.paginator.length = data.length;
+    //   this.changeDetectorRef.detectChanges(); // Trigger change detection
+    //   this.paginator._intl.itemsPerPageLabel = ''; // Now set the paginator label
+    // });
+    this.loadData(this.searchValue);
   }
 
-  loadData(): void {
-  
+  loadData(searchValue: string): void {
+
+    const params = new HttpParams()
+      .set('page', this.currentPage.toString())
+      .set('size', this.pageSize.toString())
+      .set('term', searchValue?.toString() || '');
+      this.http.get<any>(this.baseUrl + "/api/child/children", { params }).pipe(
+        catchError((error:any) => {
+          console.error('Error Message: ', error);
+          this.showErrorNotification('Form submission failed');
+          return throwError(error);
+        })
+      ).subscribe(
+        (data: any) => {
+          // Perform your action here with the received data
+          console.log('Data received:', data);
+          if(!data) { return}
+          this.childRecords = data.content;
+          this.totalPages = data['total_pages'];
+          this.totalRecords = data['total_elements']
+          this.currentPage = data['pageable']['page_number']
+          this.pageSize = data['pageable']['page_size']
+          // this.dataArray.data = this.cards;
+
+          if (this.paginator) {
+            this.paginator.pageIndex = this.currentPage - 1;
+            this.paginator.pageSize = this.pageSize;
+            this.paginator.length = this.totalRecords;
+            this.changeDetectorRef.detectChanges(); // Trigger change detection
+          }
+        },
+        error => {
+          this.showErrorNotification('Form submission failed');
+        }
+      );
+      
   }
-   
+
+
 
   toggleView(isCardView: boolean) {
     // this.isCardView = !this.isCardView;
@@ -61,34 +105,37 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/child-history', childId]);
   }
 
-  addChildHandler(){
+  addChildHandler() {
     // secretary
     this.router.navigate(['/secretary']);
   }
-  
+
   // In doctors-dashboard.component.ts
 
   applyFilter(searchValue: string) {
+    this.searchValue = searchValue
     // Here you will call your service function to filter the child records
     // Since we are using a dummy service, we just filter the local data for now
-    this.childRecords = this.dummyDataService.filterChildren(searchValue);
+    // this.childRecords = this.dummyDataService.filterChildren(searchValue);
+    this.loadData(searchValue);
   }
-  onPageEvent(event:any) {
+  onPageEvent(event: any) {
     // Here you will call your service function to get the data for the current page
     // This would be replaced with an API call in a real scenario
-    this.childRecords = this.dummyDataService.getChildrenByPage(event.pageIndex, event.pageSize);
+    // this.childRecords = this.dummyDataService.getChildrenByPage(event.pageIndex, event.pageSize);
+    this.loadData(this.searchValue);
   }
 
   prevPage(): void {
 
     this.currentPage--;
-    this.loadData();
+    this.loadData(this.searchValue);
 
   }
 
   nextPage(): void {
     this.currentPage++;
-    this.loadData();
+    this.loadData(this.searchValue);
   }
 
   pageEvent(event: any): void {
@@ -110,6 +157,27 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   pageSizeChanged(event: any): void {
     this.pageSize = event.pageSize;
     this.currentPage = 1;  // Reset to the first page when changing page size
-    this.loadData();
+    this.loadData(this.searchValue);
   }
+
+
+  // Helper method to show success notification
+private showSuccessNotification(message: string): void {
+  this.snackBar.open(message, 'Close', {
+    duration: 5000, // Duration in milliseconds
+    horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
+    verticalPosition: 'top', // Display the snackbar at the top of the screen
+    panelClass: ['success-snackbar'] // You can define your own CSS class for styling
+  });
+}
+
+// Helper method to show error notification
+private showErrorNotification(message: string): void {
+  this.snackBar.open(message, 'Close', {
+    duration: 10000, // Duration in milliseconds
+    horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
+    verticalPosition: 'top', // Display the snackbar at the top of the screen
+    panelClass: ['error-snackbar'] // You can define your own CSS class for styling
+  });
+}
 }

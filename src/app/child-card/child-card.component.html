@@ -4,14 +4,30 @@
 (click)="viewChildDetails(child.id)">
 
     <mat-card-header>
-      <mat-card-title>{{ child.name }}</mat-card-title>
-      <mat-card-subtitle>{{ child.ageYears|| "0" }} years, {{ child.ageMonths || "0" }} months,{{ child.ageDays || "0" }} days</mat-card-subtitle>
+      <mat-card-title> <mat-icon style="position: relative; top: 7px;color: rgb(175, 172, 172);">person</mat-icon> {{ child.name }}</mat-card-title>
+      <mat-card-subtitle>
+        <mat-icon>cake</mat-icon>
+        {{ child.age_years|| "0" }} years, {{ child.age_months || "0" }} months,{{ child.age_days || "0" }} days</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>Last visit: {{ child.lastVisit | date }}</p>
-      <p style="background-color: rgb(157, 190, 225); border-radius: 5%;">Days since last visit: {{ child.daysSinceLastVisit }}</p>
-      <p>Latest diagnosis: {{ child.latestDiagnosis }}</p>
+      <p>
+      <mat-icon>event</mat-icon> <!-- Replace with the appropriate icon for last visit -->
+      Last visit: {{ child.last_visit_date | date }}
+    </p>
+    <p>
+      <mat-icon style="position: relative; top: 7px;color: rgb(194, 192, 192);">access_time</mat-icon> <!-- Replace with the appropriate icon for days since last visit -->
+      Days since last visit: {{ child.days_since_last_visit }}
+    </p>
   
+  
+  
+    <p>
+      <mat-icon>phone</mat-icon> <!-- Replace with the appropriate icon for telephone -->
+      Telephone: {{ child.telephone }}
+      <mat-icon >location_on</mat-icon> <!-- Replace with the appropriate icon for address -->
+      Address: {{ child.address }}  
+    </p>
+
     </mat-card-content>
   
   </mat-card>
