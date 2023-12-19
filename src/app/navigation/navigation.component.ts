@@ -23,12 +23,16 @@ export class NavigationComponent implements OnInit {
       if (storedTheme) {
         this.isDarkMode = storedTheme === 'dark';
       }
-      this.toggleTheme();
+      this.loadTheme();
     }
 
     
     toggleTheme() {
-      this.isDarkMode = !this.isDarkMode;
+     this.isDarkMode = !this.isDarkMode;
+     this.loadTheme();
+    }
+
+    loadTheme() { 
       if (this.isDarkMode) {
         document.body.classList.add('theme-dark');
         document.body.classList.remove('theme-light'); // Fix the typo here

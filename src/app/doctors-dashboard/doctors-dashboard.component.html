@@ -12,9 +12,9 @@
 
 
                           
-<div style="display: flex; flex-wrap: wrap;" *ngIf="isCardView">
+<div   *ngIf="isCardView">
     <div *ngFor="let child of childRecords">
-    <div  style="display: grid; grid-template-columns: repeat(auto-fill, 490px); gap: 5px; height: 100%; width: 100%;"> 
+    <div > 
         <app-child-card [child]="child" style="margin: 5px;"></app-child-card>
    
     </div>

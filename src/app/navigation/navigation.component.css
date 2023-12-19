@@ -1,9 +1,11 @@
 .sidenav-container {
   height: 100%;
+  width: 100%;
 }
 
 .sidenav {
-  width: 200px;
+  /* width: 200px; */
+  width: 100%;
 }
 
 .sidenav .mat-toolbar {
@@ -18,4 +20,8 @@
 
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.card .mat-card-content {
+  display: flex;
 }
