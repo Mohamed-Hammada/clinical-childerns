@@ -1,9 +1,16 @@
 <mat-card>
     <mat-card-header>
 
-        <mat-card-title>{{ this.childRecord?.name }}</mat-card-title>
-        <mat-card-subtitle>{{ this.childRecord.ageYears|| "0" }} years, {{ this.childRecord.ageMonths || "0" }} months,{{ this.childRecord.ageDays || "0" }} days</mat-card-subtitle>
-
+        <mat-card-title> <mat-icon style="position: relative; top: 7px;color: #FF4081;">person</mat-icon> {{ this.childRecord.name }}</mat-card-title>
+        <mat-card-subtitle>
+          {{ childRecord.age_years || "0" }} years
+          <mat-icon style="color: #FF4081; font-size: 16px; vertical-align: middle;">event</mat-icon> 
+          {{ childRecord.age_months || "0" }} months
+          <mat-icon style="color: #4CAF50; font-size: 16px; vertical-align: middle;">date_range</mat-icon> 
+          {{ childRecord.age_days || "0" }} days
+          <mat-icon style="color: #2196F3; font-size: 16px; vertical-align: middle;">access_time</mat-icon> 
+        </mat-card-subtitle>
+        
 
     </mat-card-header>
 
