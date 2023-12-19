@@ -4,38 +4,51 @@
 
 
   <mat-card-header>
-    <mat-card-title> <mat-icon style="position: relative; top: 7px;color: rgb(175, 172, 172);">person</mat-icon> {{ childRecord.name }}</mat-card-title>
+    <!-- <mat-card-title> <mat-icon style="position: relative; top: 7px;color: rgb(175, 172, 172);">person</mat-icon> {{ childRecord.name }}</mat-card-title> -->
     <mat-card-subtitle>
       
       {{ childRecord.age_years|| "0" }} years, {{ childRecord.age_months || "0" }} months,{{ childRecord.age_days || "0" }} days</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
-    <p>Visit Date: {{ medicalRecord.date | date }}</p>
+    <p>Visit Date: {{ medicalRecord.visit_date | date }}</p>
     <!-- Assuming you have a method to calculate days since the last visit -->
-    <p style="background-color: rgb(157, 190, 225); border-radius: 5%;">Days since previous visit: {{
-      childRecord.daysSinceLastVisit }}</p>
-    <p>Diagnosis: {{ medicalRecord.diagnosis }}</p>
-    <p style="background-color: rgb(157, 190, 225); border-radius: 5%;">Treatment: {{ medicalRecord.treatment }}</p>
-    <p>Notes: {{ medicalRecord.notes }}</p>
+    <p>Days since previous visit: {{
+      childRecord.days_since_last_visit }}</p>
+ 
+  
     <!-- Add more details as needed -->
 
     <div class="symptom-tags">
-      <ng-container *ngFor="let symptom of medicalRecord.symptoms">
-        <p class="tag">{{symptom}}</p>
+      <ng-container *ngFor="let value of medicalRecord.analysis_names">
+        <p class="tag">{{value}}</p>
       </ng-container>
     </div>
-    <!-- <div *ngFor="let analysisRow of medicalRecord.analysis">
-        <p>{{analysisRow}}</p>
-      </div>
-      <div *ngFor="let xray of medicalRecord.xRays">
-        <p>{{xray}}</p>
-      </div> -->
+ 
+    <div class="symptom-tags">
+      <ng-container *ngFor="let value of medicalRecord.symptoms_names">
+        <p class="tag2">{{value}}</p>
+      </ng-container>
+    </div>
 
+    <div class="symptom-tags">
+      <ng-container *ngFor="let value of medicalRecord.diagnosis_names">
+        <p class="tag">{{value}}</p>
+      </ng-container>
+    </div>
+
+    <div class="symptom-tags">
+      <ng-container *ngFor="let value of medicalRecord.treatment_names">
+        <p class="tag2">{{value}}</p>
+      </ng-container>
+    </div>
+
+    <div class="symptom-tags">
+      <ng-container *ngFor="let value of medicalRecord.xrays_names">
+        <p class="tag">{{value}}</p>
+      </ng-container>
+    </div>
+    <p>Notes: {{ medicalRecord.note }}</p>
   </mat-card-content>
-  <!-- Actions like 'View More' or 'Edit' -->
-
-  <!-- <mat-card-actions>
-      <button mat-button (click)="viewChildDetails(medicalRecord.id)">VIEW DETAILS</button>
-    </mat-card-actions> -->
+ 
 </mat-card>
