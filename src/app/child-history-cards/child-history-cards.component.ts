@@ -35,9 +35,7 @@ export class ChildHistoryCardsComponent {
 
   viewChildDetails(medicalRecordId: number) {
     console.log('Child Medical Record')
-    const navigationExtras: NavigationExtras = { state: {  medicalRecord: this.medicalRecord, childRecord: this.childRecord } };
     this.dataService.setData({  medicalRecord: this.medicalRecord, childRecord: this.childRecord });
-
     this.router.navigate(['/medical-edits']);
   }
 }

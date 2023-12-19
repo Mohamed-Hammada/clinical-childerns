@@ -31,12 +31,12 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'name', 'diagnosis', 'lastVisit'];
 
   constructor(private snackBar: MatSnackBar,
-    private changeDetectorRef: ChangeDetectorRef, private router: Router, private http: HttpClient) { }
+    private changeDetectorRef: ChangeDetectorRef, private router: Router, private http: HttpClient,private dataService: DataService) { }
 
   ngOnInit() {
     
     this.isCardView = sessionStorage.getItem('preferredView') !== 'table';
-    this.loadData(this.searchValue);
+    this.loadData();
 
   }
 
@@ -47,15 +47,15 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     //   this.changeDetectorRef.detectChanges(); // Trigger change detection
     //   this.paginator._intl.itemsPerPageLabel = ''; // Now set the paginator label
     // });
-    this.loadData(this.searchValue);
+    this.loadData();
   }
 
-  loadData(searchValue: string): void {
+  loadData(): void {
 
     const params = new HttpParams()
       .set('page', this.currentPage.toString())
       .set('size', this.pageSize.toString())
-      .set('term', searchValue?.toString() || '');
+      .set('term', this.searchValue?.toString() || '');
       this.http.get<any>(this.baseUrl + "/api/child/children", { params }).pipe(
         catchError((error:any) => {
           debugger
@@ -100,11 +100,14 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   }
 
 
-  viewChildDetails(childId: number) {
+  viewChildDetails(child: any) {
     // Implementation to view child details
     // Could involve navigating to a new route or opening a modal
-    console.log('Navigating to details for child:', childId);
-    this.router.navigate(['/child-history', childId]);
+    debugger
+    console.log('Navigating to details for child:', child.name);
+    this.dataService.setData({  childRecord: child });
+
+    this.router.navigate(['/child-history']);
   }
 
   addChildHandler() {
@@ -119,25 +122,25 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     // Here you will call your service function to filter the child records
     // Since we are using a dummy service, we just filter the local data for now
     // this.childRecords = this.dummyDataService.filterChildren(searchValue);
-    this.loadData(searchValue);
+    this.loadData();
   }
   onPageEvent(event: any) {
     // Here you will call your service function to get the data for the current page
     // This would be replaced with an API call in a real scenario
     // this.childRecords = this.dummyDataService.getChildrenByPage(event.pageIndex, event.pageSize);
-    this.loadData(this.searchValue);
+    this.loadData();
   }
 
   prevPage(): void {
 
     this.currentPage--;
-    this.loadData(this.searchValue);
+    this.loadData();
 
   }
 
   nextPage(): void {
     this.currentPage++;
-    this.loadData(this.searchValue);
+    this.loadData();
   }
 
   pageEvent(event: any): void {
@@ -159,7 +162,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   pageSizeChanged(event: any): void {
     this.pageSize = event.pageSize;
     this.currentPage = 1;  // Reset to the first page when changing page size
-    this.loadData(this.searchValue);
+    this.loadData();
   }
 
 

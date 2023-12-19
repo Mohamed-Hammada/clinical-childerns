@@ -50,5 +50,5 @@
 
   <!-- Define the table rows using matRowDef -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="viewChildDetails(row.id)" class="elements-row"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="viewChildDetails(row)" class="elements-row"></mat-row>
 </mat-table>

@@ -2,18 +2,17 @@
  
 <h2 style="margin: 10px;">{{currentChild.name}}</h2>
 
-<div class="search-div" style="display: flex; align-items: center;">
+<!-- <div class="search-div" style="display: flex; align-items: center;">
     <mat-form-field  style="flex: 1;" appearance="outline">
         <mat-label>Search for a child...</mat-label>
         <input matInput (keyup)="applyFilter($any($event.target).value)">
-    </mat-form-field>
-</div>
+        <mat-icon style=" position: relative; top: 7px;color: rgb(194, 192, 192);" matPrefix>search</mat-icon>
 
-<mat-paginator showFirstLastButtons 
-                          [pageSize]="pageSize" 
-                          [pageSizeOptions]="pageSizeOptions" 
-                          (page)="pageEvent($event)" 
-                          [length]="totalRecords"></mat-paginator>
+
+    </mat-form-field>
+</div> -->
+
+
                           
 <div style="display: flex; flex-wrap: wrap;" *ngIf="isCardView">
     <div *ngFor="let medicalRecord of medicalRecords">
@@ -28,4 +27,12 @@
   <app-child-history-table [childRecord]="currentChild" [medicalRecords]="medicalRecords" (selectChild)="viewChildDetails($event)"></app-child-history-table>
 </ng-container>
 
-  
+<button mat-mini-fab color="primary" class="floating-button" (click)="addChildVisitHandler()">
+    <mat-icon>add</mat-icon> <!-- You can change the icon as needed -->
+  </button>
+
+<mat-paginator showFirstLastButtons 
+[pageSize]="pageSize" 
+[pageSizeOptions]="pageSizeOptions" 
+(page)="pageEvent($event)" 
+[length]="totalRecords"></mat-paginator>

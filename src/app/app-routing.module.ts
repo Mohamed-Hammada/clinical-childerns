@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/doctor', pathMatch: 'full' }, // Redirect to 'doctor' as the default route
   { path: 'secretary', component: SecretaryPageComponent },
   { path: 'doctor', component: DoctorsDashboardComponent },
-  { path: 'child-history/:id', component: ChildHistoryComponent },
+  { path: 'child-history', component: ChildHistoryComponent },
   { path: 'medical-edits', component: CreateUpdateMedicalRecordComponent },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 ];

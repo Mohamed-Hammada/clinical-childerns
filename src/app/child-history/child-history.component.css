@@ -1,1 +1,17 @@
  
+/* Add your Angular Material theme if needed */
+.mat-button-toggle.mat-button-toggle-checked {
+    background-color: #04AA6D; /* Change this color to your desired selection color */
+    color: white; /* Optional: Change text color to make it more visible */
+  }
+  
+  
+  
+  /* Add these styles to your component's CSS or the global styles */
+  .floating-button {
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    z-index: 1000; /* Adjust the z-index as needed */
+  }
+  

@@ -1,6 +1,7 @@
 import { Component,Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router, NavigationStart, NavigationEnd, NavigationError, ActivatedRoute } from '@angular/router';
+import { DataService } from '../services/DataService';
 
 @Component({
   selector: 'app-child-card',
@@ -30,7 +31,7 @@ export class ChildCardComponent {
   @Input() child: any;
   hoverState = 'initial'; // Initial state is not hovered
   
-  constructor(private router: Router, private route: ActivatedRoute) { this.router.events.subscribe(event => {
+  constructor(private router: Router, private route: ActivatedRoute,private dataService: DataService) { this.router.events.subscribe(event => {
     if (event instanceof NavigationStart) {
       console.log('Navigation started to:', event.url);
     } else if (event instanceof NavigationEnd) {
@@ -42,9 +43,8 @@ export class ChildCardComponent {
   viewChildDetails(childId:number){
     console.log("<<<<<<<<<>>>>>>>>>>>>>>>>")
     // debugger
-    this.router.navigate(['child-history', childId]).catch(err => {
-      console.error('Navigation Error:', err);
-    });
+    this.dataService.setData({childRecord: this.child});
+    this.router.navigate(['child-history'])
 
   }
 }
