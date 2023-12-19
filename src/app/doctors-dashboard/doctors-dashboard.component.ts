@@ -161,7 +161,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
 
   pageSizeChanged(event: any): void {
     this.pageSize = event.pageSize;
-    this.currentPage = 1;  // Reset to the first page when changing page size
+    this.currentPage = 0;  // Reset to the first page when changing page size
     this.loadData();
   }
 
