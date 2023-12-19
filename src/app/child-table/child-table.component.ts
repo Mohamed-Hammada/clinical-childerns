@@ -15,7 +15,7 @@ export class ChildTableComponent {
   constructor(private router: Router,private dataService: DataService) { }
   viewChildDetails(child: any) {
     // this.selectChild.emit(childId);
-    debugger
+    // debugger
     this.dataService.setData({  childRecord: child });
     this.router.navigate(['/child-history']);
   }
