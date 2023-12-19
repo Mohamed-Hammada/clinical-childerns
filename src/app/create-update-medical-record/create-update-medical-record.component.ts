@@ -4,6 +4,7 @@ import { of, Observable ,  map } from 'rxjs';
 import { DataService } from '../services/DataService';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-update-medical-record',
@@ -26,6 +27,7 @@ export class CreateUpdateMedicalRecordComponent {
   // // Treatment  
   // treatment: string[] = ['Antibiotics', 'Pain Relievers', 'Rest', 'Physical Therapy', 'Surgery', 'Chemotherapy', 'Radiation Therapy', 'Immunotherapy', 'Counseling', 'Medication Management', 'Lifestyle Changes', 'Dietary Changes', 'Hydration', 'Braces or Splints', 'Oxygen Therapy', 'Psychological Therapy', 'Alternative Medicine',];
 
+  id: string | null  = null;
   selectedFruits: string[] = [];
 
   selectedSymptoms: string[] = [];
@@ -37,7 +39,7 @@ export class CreateUpdateMedicalRecordComponent {
 
   @Input() medicalRecord: any;
   @Input() childRecord: any;
-  constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private router: Router, private dataService: DataService, private http: HttpClient) { }
 
   ngOnInit(): void {
     // debugger
@@ -102,17 +104,7 @@ export class CreateUpdateMedicalRecordComponent {
     );
   }
 
-  submitForm() {
-    // Log the selected values for each array
-    console.log('Selected Symptoms:', this.selectedSymptoms);
-    console.log('Selected Analysis:', this.selectedAnalysis);
-    console.log('Selected X-rays:', this.selectedXrays);
-    console.log('Selected Diagnosis:', this.selectedDiagnosis);
-    console.log('Selected Treatment:', this.selectedTreatment);
-    console.log('Notes:', this.notes);
 
-    // Add more logic here if needed, such as sending data to a server or other actions.
-  }
 
   autoGrowTextZone(e: Event) {
     const target = (e as any)?.target as HTMLElement | undefined;
@@ -122,5 +114,59 @@ export class CreateUpdateMedicalRecordComponent {
     }
   }
 
+
+  submitForm() {
+    // Log the selected values for each array
+    console.log('Selected Symptoms:', this.id);
+    console.log('Selected Symptoms:', this.selectedSymptoms);
+    console.log('Selected Analysis:', this.selectedAnalysis);
+    console.log('Selected X-rays:', this.selectedXrays);
+    console.log('Selected Diagnosis:', this.selectedDiagnosis);
+    console.log('Selected Treatment:', this.selectedTreatment);
+    console.log('Notes:', this.notes);
+
+    const obj = {id:this.id, child_id: this.childRecord.id ,
+       analysis_names: this.selectedAnalysis , symptoms_names:this.selectedSymptoms,
+       xrays_names: this.selectedXrays , diagnosis_names: this.selectedDiagnosis ,
+        treatment_names : this.selectedTreatment , note : this.notes }
+       this.http.post<any>(`${this.baseUrl}/api/visit-history/submit-or-update`, obj)
+        .subscribe(
+          (response) => {
+            // Handle success
+            console.log('Response: ', response);
+            this.dataService.setData({  childRecord: this.childRecord });
+
+            this.router.navigate(['/child-history']); // Navigate to success route
+            this.showSuccessNotification('Form submitted successfully');
+          },
+          (error) => {
+            // Handle error
+            console.error('Error: ', error);
+            this.showErrorNotification(error.error.detail);
+          }
+        );
+     
+  }
+
+    
+// Helper method to show success notification
+private showSuccessNotification(message: string): void {
+  this.snackBar.open(message, 'Close', {
+    duration: 5000, // Duration in milliseconds
+    horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
+    verticalPosition: 'top', // Display the snackbar at the top of the screen
+    panelClass: ['success-snackbar'] // You can define your own CSS class for styling
+  });
+}
+
+// Helper method to show error notification
+private showErrorNotification(message: string): void {
+  this.snackBar.open(message, 'Close', {
+    duration: 10000, // Duration in milliseconds
+    horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
+    verticalPosition: 'top', // Display the snackbar at the top of the screen
+    panelClass: ['error-snackbar'] // You can define your own CSS class for styling
+  });
+}
 
 }

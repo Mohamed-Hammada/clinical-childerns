@@ -55,6 +55,7 @@ export class SecretaryPageComponent implements OnInit{
         );
     }
   }
+  
 // Helper method to show success notification
 private showSuccessNotification(message: string): void {
   this.snackBar.open(message, 'Close', {
