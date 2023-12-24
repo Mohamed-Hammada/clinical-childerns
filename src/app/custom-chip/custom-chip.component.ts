@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, EventEmitter, inject, Input, Output, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
@@ -18,7 +18,7 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
   templateUrl: './custom-chip.component.html',
   styleUrls: ['./custom-chip.component.css']
 })
-export class CustomChipComponent implements OnInit {
+export class CustomChipComponent implements OnInit ,AfterViewInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
@@ -36,6 +36,7 @@ export class CustomChipComponent implements OnInit {
   announcer = inject(LiveAnnouncer);
   @ViewChild('auto') matAutocomplete!: MatAutocompleteTrigger;
   private filteredItemsSubject = new BehaviorSubject<string[]>([]);
+  @ViewChild('input') input!: ElementRef; 
 
   constructor() {
     // this.filteredItems = this.itemCtrl.valueChanges.pipe(
@@ -50,6 +51,30 @@ export class CustomChipComponent implements OnInit {
       map(value => value ?? ''),
       switchMap(value => this.filterFn(value))
     );
+  }
+  ngAfterViewInit(): void {
+    // this.input.nativeElement.focus(); 
+
+    this.input.nativeElement.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Tab') {
+         console.log('tab');
+         event.preventDefault(); // Prevent default Tab behavior
+         this.simulateEnterKeyPress(); 
+      }
+    }); 
+  
+  }
+
+  simulateEnterKeyPress(): void {
+    const enterKeyEvent = new KeyboardEvent('keydown', {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+      which: 13,
+      bubbles: true,
+    });
+
+    this.input.nativeElement.dispatchEvent(enterKeyEvent);
   }
   ngOnInit(): void {
     // Set the initial value from filteredItemsInput
