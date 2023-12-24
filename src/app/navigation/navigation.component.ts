@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -18,6 +19,7 @@ export class NavigationComponent implements OnInit {
       shareReplay()
     );
 
+    constructor(private router: Router){}
     ngOnInit() {
       const storedTheme = sessionStorage.getItem('theme');
       if (storedTheme) {
@@ -31,7 +33,10 @@ export class NavigationComponent implements OnInit {
      this.isDarkMode = !this.isDarkMode;
      this.loadTheme();
     }
-
+    redirectToHome() {
+      this.router.navigate(['/']); // Replace '/' with the actual route for your home page
+    }
+  
     loadTheme() { 
       if (this.isDarkMode) {
         document.body.classList.add('theme-dark');

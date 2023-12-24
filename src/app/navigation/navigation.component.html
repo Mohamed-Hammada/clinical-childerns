@@ -27,6 +27,9 @@
       <mat-icon style=" color:#54e175">child_care</mat-icon>
 
       </button>
+
+  
+    
       <!-- <button
         type="button"
         aria-label="Toggle sidenav"
@@ -36,6 +39,10 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button> -->
       <span>KinderHealth Clinic</span>
+      <span class="example-spacer"></span>
+      <button type="button" aria-label="Go to home" mat-icon-button (click)="redirectToHome()">
+        <mat-icon style="color: #e7e7ef">home</mat-icon>
+      </button>
       <span class="example-spacer"></span>
       <button mat-icon-button (click)="toggleTheme()">
         <mat-icon>{{ isDarkMode ? 'wb_sunny' : 'nights_stay' }}</mat-icon>
