@@ -111,6 +111,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   }
 
   addChildHandler() {
+    this.dataService.setData({ });
     // secretary
     this.router.navigate(['/secretary']);
   }

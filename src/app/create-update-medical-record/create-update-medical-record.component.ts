@@ -38,6 +38,7 @@ export class CreateUpdateMedicalRecordComponent {
     this.childRecord = data.childRecord;
     // debugger
     if (this.medicalRecord) {
+      this.id = this.medicalRecord.id;
       this.symptoms_names = this.medicalRecord.symptoms_names;
       this.analysis_names = this.medicalRecord.analysis_names;
       this.xrays_names = this.medicalRecord.xrays_names;

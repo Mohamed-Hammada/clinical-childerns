@@ -163,7 +163,10 @@ export class ChildHistoryComponent {
     this.loadData();
   }
 
-
+  editChild(){
+    this.dataService.setData({childRecord: this.currentChild});
+    this.router.navigate(['/secretary']);
+  }
   
   addChildVisitHandler() {
     this.dataService.setData({childRecord: this.currentChild});
