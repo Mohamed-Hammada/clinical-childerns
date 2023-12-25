@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule, isDevMode} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +38,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -49,10 +50,15 @@ function initializeKeycloak(keycloak: KeycloakService) {
       },
       initOptions: {
         onLoad: 'check-sso',
-        checkLoginIframe : true,
-        silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/silent-check-sso.html'
-      }
+        checkLoginIframe:false,
+        checkLoginIframeInterval:25,
+        redirectUri: 'http://localhost:4200'
+        // onLoad: 'check-sso',
+        // checkLoginIframe : true,
+        // silentCheckSsoRedirectUri:
+        //   window.location.origin + '/assets/silent-check-sso.html'
+      },
+      loadUserProfileAtStartUp: true
     });
 }
 
@@ -99,7 +105,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatDatepickerModule,
     MatNativeDateModule, // Import the MatNativeDateModule here
     MatSnackBarModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   exports: [
     MatButtonModule,

@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "ngsw-config": "node_modules\\.bin\\ngsw-config dist ngsw-config.json",
+    "build-prod": "ng build --configuration production --output-path dist --base-href ./ && npm run ngsw-config",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -20,6 +22,7 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@angular/service-worker": "^16.2.0",
     "keycloak-angular": "^14.1.0",
     "keycloak-js": "^22.0.5",
     "rxjs": "~7.8.0",

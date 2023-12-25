@@ -9,7 +9,7 @@ import {KeycloakProfile} from "keycloak-js";
 })
 export class AppComponent implements OnInit {
 
-  title = 'clinical-childern';
+  title = 'Kinder Health Clinic';
   constructor(public readonly keycloak: KeycloakService) { }
   ngOnInit(): void {
     this.keycloak.isLoggedIn().then(isLoggedIn => {

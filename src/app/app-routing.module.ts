@@ -10,9 +10,9 @@ import { AuthGuard } from './guards/auth-guard.guard';
 const routes: Routes = [
   { path: '', redirectTo: '/doctor', pathMatch: 'full' }, // Redirect to 'doctor' as the default route
   { path: 'secretary', component: SecretaryPageComponent,canActivate : [AuthGuard] },
-  { path: 'doctor', component: DoctorsDashboardComponent },
-  { path: 'child-history', component: ChildHistoryComponent },
-  { path: 'medical-edits', component: CreateUpdateMedicalRecordComponent },
+  { path: 'doctor', component: DoctorsDashboardComponent,canActivate : [AuthGuard] },
+  { path: 'child-history', component: ChildHistoryComponent,canActivate : [AuthGuard] },
+  { path: 'medical-edits', component: CreateUpdateMedicalRecordComponent,canActivate : [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 ];
 

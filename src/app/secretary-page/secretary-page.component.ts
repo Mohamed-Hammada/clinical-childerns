@@ -21,7 +21,7 @@ export class SecretaryPageComponent implements OnInit {
     const childRecord = this.dataService.data.childRecord;
     if (childRecord) {
       this.childInfoForm = this.fb.group({
-        id:[childRecord.id, Validators.required],
+        id:[childRecord.id,Validators.required],
         name: [childRecord.name, Validators.required],
         birthday: [childRecord.birthday, [Validators.required, this.dateValidator]],
         address: [childRecord.address],
@@ -29,7 +29,7 @@ export class SecretaryPageComponent implements OnInit {
       });
     }else{
       this.childInfoForm = this.fb.group({
-        id:[null, Validators.required],
+        id:[null],
         name: ['', Validators.required],
         birthday: ['', [Validators.required, this.dateValidator]],
         address: [''],
@@ -68,6 +68,39 @@ export class SecretaryPageComponent implements OnInit {
           }
         );
     }
+  }
+
+  checkFormValidityTest() {
+    // debugger
+    Object.keys(this.childInfoForm.controls).forEach(controlName => {
+      const control = this.childInfoForm.get(controlName);
+
+      // Clear existing error messages
+      control?.setErrors(null);
+
+      // Check for validity and display error message
+      if (control && control.invalid) {
+        const messages: string[] = [];
+
+        if (control.errors) {
+          for (const key in control.errors) {
+            switch (key) {
+              case 'required':
+                messages.push(`${controlName} is required`);
+                break;
+              case 'invalidDate':
+                messages.push(`${controlName} has an invalid date`);
+                break;
+              // Add additional cases for other validation rules if needed
+            }
+          }
+        }
+
+        // Set the error messages for the control
+        control.setErrors({ 'validationErrors': messages });
+        console.log('Error messages: ', messages);
+      }
+    });
   }
 
   // Helper method to show success notification
