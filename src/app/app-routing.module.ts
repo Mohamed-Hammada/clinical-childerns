@@ -5,10 +5,11 @@ import { DoctorsDashboardComponent } from './doctors-dashboard/doctors-dashboard
 import { ChildHistoryComponent } from './child-history/child-history.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CreateUpdateMedicalRecordComponent } from './create-update-medical-record/create-update-medical-record.component';
+import { AuthGuard } from './guards/auth-guard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/doctor', pathMatch: 'full' }, // Redirect to 'doctor' as the default route
-  { path: 'secretary', component: SecretaryPageComponent },
+  { path: 'secretary', component: SecretaryPageComponent,canActivate : [AuthGuard] },
   { path: 'doctor', component: DoctorsDashboardComponent },
   { path: 'child-history', component: ChildHistoryComponent },
   { path: 'medical-edits', component: CreateUpdateMedicalRecordComponent },
