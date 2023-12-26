@@ -29,7 +29,7 @@ export class ChildHistoryComponent implements OnInit, AfterViewInit {
   currentChildId: number = -1;
   currentChild!: any;
   medicalRecords: any[] = [];
-  private baseUrl = environment.apiUrl;
+  private baseUrl = environment.beUrl;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   isCardView: boolean = true; // Default to card view

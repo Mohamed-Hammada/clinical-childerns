@@ -16,7 +16,7 @@ import { catchError, tap, throwError } from 'rxjs';
 })
 export class SecretaryPageComponent implements OnInit {
   childInfoForm!: FormGroup;
-  private baseUrl = environment.apiUrl;
+  private baseUrl = environment.beUrl;
   constructor(private fb: FormBuilder, public readonly keycloak: KeycloakService, private router: Router, private notificationService: NotificationService, private dataService: DataService, private http: HttpClient) { 
  
     const childRecord = this.dataService.data.childRecord;

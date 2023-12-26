@@ -2,10 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-
-import { SecurityService } from ".././services/security-service.service";
+import { environment } from 'src/environments/environment';
 import { KeycloakService } from "keycloak-angular";
 import { KeycloakProfile } from "keycloak-js";
 @Component({
@@ -24,7 +22,7 @@ export class NavigationComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private router: Router, public readonly keycloak: KeycloakService) { }
+  constructor(private router: Router,public readonly keycloak: KeycloakService) { }
   ngOnInit() {
     const storedTheme = sessionStorage.getItem('theme');
     if (storedTheme) {
@@ -81,6 +79,6 @@ export class NavigationComponent implements OnInit {
   }
 
   public profile() {
-    window.location.href = "http://localhost:8080/realms/kinder-health-clinic/account/#/personal-info";
+    window.location.href = environment.keycloak.profileUrl;
   }
 }

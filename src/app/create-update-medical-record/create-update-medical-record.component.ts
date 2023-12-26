@@ -16,7 +16,7 @@ import { NotificationService } from '../services/notification.service';
 
 })
 export class CreateUpdateMedicalRecordComponent {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = environment.beUrl;
   id: string | null = null;
 
 

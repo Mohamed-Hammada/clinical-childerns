@@ -24,7 +24,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   pageSize: number = 5;
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
-  private baseUrl = environment.apiUrl;
+  private baseUrl = environment.beUrl;
   childRecords: any[] = [];
   searchValue:string='';
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
