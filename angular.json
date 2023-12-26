@@ -31,7 +31,10 @@
             ],
             "scripts": [],
             "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "ngswConfigPath": "ngsw-config.json",
+            "allowedCommonJsDependencies": [
+              "keycloak-js","keycloak-angular" , "base64-js" , "js-sha256"
+            ]
           },
           "configurations": {
             "production": {
