@@ -57,3 +57,9 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* styles.css (or your component's style file) */
+.success-snackbar {
+  background-color: green; /* Set your desired background color for success */
+  color: white; /* Set the text color for better visibility */
+}

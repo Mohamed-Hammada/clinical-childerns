@@ -11,6 +11,7 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { KeycloakService } from 'keycloak-angular';
+import { NotificationService } from '../services/notification.service';
 @Component({
   selector: 'app-doctors-dashboard',
   templateUrl: './doctors-dashboard.component.html',
@@ -31,7 +32,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   isCardView: boolean = true; // Default to card view
   displayedColumns: string[] = ['id', 'name', 'diagnosis', 'lastVisit'];
 
-  constructor(private snackBar: MatSnackBar, public readonly keycloak: KeycloakService,
+  constructor(private notificationService: NotificationService, public readonly keycloak: KeycloakService,
     private changeDetectorRef: ChangeDetectorRef, private router: Router, private http: HttpClient,private dataService: DataService) { }
 
   async ngOnInit() {
@@ -66,7 +67,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
         catchError((error:any) => {
          // debugger
           console.error('Error Message: ', error);
-          this.showErrorNotification(  error.error.detail);
+          this.notificationService.showErrorNotification(  error.error.detail);
           return throwError(error);
         })
       ).subscribe(
@@ -90,7 +91,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
         },
         error => {
         //  debugger
-          this.showErrorNotification(error.error.detail);
+          this.notificationService.showErrorNotification(error.error.detail);
         }
       );
       
@@ -172,24 +173,4 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     this.loadData();
   }
 
-
-  // Helper method to show success notification
-private showSuccessNotification(message: string): void {
-  this.snackBar.open(message, 'Close', {
-    duration: 5000, // Duration in milliseconds
-    horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
-    verticalPosition: 'top', // Display the snackbar at the top of the screen
-    panelClass: ['success-snackbar'] // You can define your own CSS class for styling
-  });
-}
-
-// Helper method to show error notification
-private showErrorNotification(message: string): void {
-  this.snackBar.open(message, 'Close', {
-    duration: 10000, // Duration in milliseconds
-    horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
-    verticalPosition: 'top', // Display the snackbar at the top of the screen
-    panelClass: ['error-snackbar'] // You can define your own CSS class for styling
-  });
-}
 }

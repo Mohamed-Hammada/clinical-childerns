@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DataService } from '../services/DataService';
 import { KeycloakService } from 'keycloak-angular';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-secretary-page',
@@ -15,7 +16,7 @@ import { KeycloakService } from 'keycloak-angular';
 export class SecretaryPageComponent implements OnInit {
   childInfoForm!: FormGroup;
   private baseUrl = environment.apiUrl;
-  constructor(private fb: FormBuilder, public readonly keycloak: KeycloakService, private router: Router, private snackBar: MatSnackBar, private dataService: DataService, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, public readonly keycloak: KeycloakService, private router: Router, private notificationService: NotificationService, private dataService: DataService, private http: HttpClient) { }
 
   async ngOnInit() {
     const isLoggedIn = await this.keycloak.isLoggedIn();
@@ -65,12 +66,12 @@ export class SecretaryPageComponent implements OnInit {
             // Handle success
             console.log('Response: ', response);
             this.router.navigate(['/doctor']); // Navigate to success route
-            this.showSuccessNotification('Form submitted successfully');
+            this.notificationService.showSuccessNotification('Form submitted successfully');
           },
           (error) => {
             // Handle error
             console.error('Error: ', error);
-            this.showErrorNotification(error.error.detail);
+            this.notificationService.showErrorNotification(error.error.detail);
           }
         );
     }
@@ -108,26 +109,4 @@ export class SecretaryPageComponent implements OnInit {
       }
     });
   }
-
-  // Helper method to show success notification
-  private showSuccessNotification(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 5000, // Duration in milliseconds
-      horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
-      verticalPosition: 'top', // Display the snackbar at the top of the screen
-      panelClass: ['success-snackbar'] // You can define your own CSS class for styling
-    });
-  }
-
-  // Helper method to show error notification
-  private showErrorNotification(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 10000, // Duration in milliseconds
-      horizontalPosition: 'start', // Display the snackbar at the start (left) of the screen
-      verticalPosition: 'top', // Display the snackbar at the top of the screen
-      panelClass: ['error-snackbar'] // You can define your own CSS class for styling
-    });
-  }
-
-
 }
