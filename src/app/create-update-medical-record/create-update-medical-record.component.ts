@@ -63,7 +63,7 @@ export class CreateUpdateMedicalRecordComponent {
   }
 
   filterSymptoms = (term: string): Observable<string[]> => {
-    return this.http.get<any>(`${this.baseUrl}/symptoms`, {
+    return this.http.get<any>(`${this.baseUrl}/api/symptoms`, {
       params: { term }
     }).pipe(
       catchError(async (error) => {
@@ -80,14 +80,14 @@ export class CreateUpdateMedicalRecordComponent {
         // Return error for further handling
         return throwError(error);
       }),
-      map(response => response.map((symptom: { name: string }) => symptom.name))
+      map(response => response.content.map((symptom: { name: string }) => symptom.name))
     );
   }
 
   filterAnalysis = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/analysis`, { params })
+    return this.http.get<any>(`${this.baseUrl}/api/analysis`, { params })
       .pipe(
         catchError(async (error) => {
 
@@ -103,14 +103,14 @@ export class CreateUpdateMedicalRecordComponent {
           // Return error for further handling
           return throwError(error);
         }),
-        map(response => response.map((item: { name: string }) => item.name))
+        map(response => response.content.map((item: { name: string }) => item.name))
       );
   }
 
   filterXrays = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/xrays`, { params })
+    return this.http.get<any>(`${this.baseUrl}/api/xrays`, { params })
       .pipe(
         catchError(async (error) => {
 
@@ -126,14 +126,14 @@ export class CreateUpdateMedicalRecordComponent {
           // Return error for further handling
           return throwError(error);
         }),
-        map(response => response.map((item: { name: string }) => item.name))
+        map(response => response.content.map((item: { name: string }) => item.name))
       );
   }
 
   filterDiagnosis = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/diagnosis`, { params })
+    return this.http.get<any>(`${this.baseUrl}/api/diagnosis`, { params })
       .pipe(
         catchError(async (error) => {
 
@@ -149,14 +149,14 @@ export class CreateUpdateMedicalRecordComponent {
           // Return error for further handling
           return throwError(error);
         }),
-        map(response => response.map((item: { name: string }) => item.name))
+        map(response => response.content.map((item: { name: string }) => item.name))
       );
   }
 
   filterTreatment = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/treatment`, { params })
+    return this.http.get<any>(`${this.baseUrl}/api/treatment`, { params })
       .pipe(
         catchError(async (error) => {
 
@@ -172,7 +172,7 @@ export class CreateUpdateMedicalRecordComponent {
           // Return error for further handling
           return throwError(error);
         }),
-        map(response => response.map((item: { name: string }) => item.name))
+        map(response => response.content.map((item: { name: string }) => item.name))
       );
   }
 

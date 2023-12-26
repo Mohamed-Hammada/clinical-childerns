@@ -46,7 +46,7 @@ export class ChildHistoryComponent implements OnInit, AfterViewInit {
     }
   });
 
-    debugger
+    // debugger
     const data = this.dataService.data;
     this.currentChild = data.childRecord;
     this.childId = data.childRecord.id
@@ -69,7 +69,7 @@ export class ChildHistoryComponent implements OnInit, AfterViewInit {
     const params = new HttpParams()
       .set('page', this.currentPage.toString())
       .set('size', this.pageSize.toString());
-    debugger
+    // debugger
     this.http.get<any>(this.baseUrl + `/api/visit-history/child/${this.currentChild.id}`, { params })
       .pipe(
         catchError(this.handleError),

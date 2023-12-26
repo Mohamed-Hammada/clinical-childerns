@@ -51,7 +51,7 @@ export class ChildCardComponent implements OnInit{
   
   viewChildDetails(childId:number){
     console.log("<<<<<<<<<>>>>>>>>>>>>>>>>")
-    debugger
+    // debugger
     this.dataService.setData({childRecord: this.child});
     this.router.navigate(['/child-history',this.child.id]);
 
