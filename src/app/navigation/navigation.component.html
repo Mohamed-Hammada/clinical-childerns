@@ -45,6 +45,10 @@
       <span class="example-spacer"></span>
     
       <span class="example-spacer"></span>
+      <button type="button" aria-label="Go to home" mat-icon-button (click)="logout()">
+        <mat-icon style="color: #54545a">exit_to_app</mat-icon>
+      </button>
+
       <button mat-icon-button (click)="toggleTheme()">
         <mat-icon>{{ isDarkMode ? 'wb_sunny' : 'nights_stay' }}</mat-icon>
       </button>
