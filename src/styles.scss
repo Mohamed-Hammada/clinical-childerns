@@ -41,10 +41,10 @@ $my-theme-dark: mat.define-dark-theme((
 ));
 
 .theme-dark{
-    @include mat.all-component-themes($my-theme-dark);
+  @include mat.all-component-colors($my-theme-dark);
 }
 .theme-ligth{
-    @include mat.all-component-themes($my-theme);
+  @include mat.all-component-colors($my-theme);
 }
 
 
