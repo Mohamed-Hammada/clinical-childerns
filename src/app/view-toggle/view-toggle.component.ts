@@ -23,12 +23,12 @@ export class ViewToggleComponent implements OnInit{
 
 
 constructor(public readonly keycloak: KeycloakService) { }
-async ngOnInit(): Promise<void> {
-  const isLoggedIn = await this.keycloak.isLoggedIn();
-
-  if (!isLoggedIn) {
-    this.keycloak.login();
-  }
+ngOnInit() {
+  this.keycloak.isLoggedIn().then((isLoggedIn) => {
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  });
 }
 
   writeValue(value: any): void {

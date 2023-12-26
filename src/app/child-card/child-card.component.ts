@@ -41,19 +41,19 @@ export class ChildCardComponent implements OnInit{
       console.log('Navigation error:', event.error);
     }
   });}
-  async ngOnInit(): Promise<void> {
-    const isLoggedIn = await this.keycloak.isLoggedIn();
-  
-    if (!isLoggedIn) {
-      this.keycloak.login();
-    }
-  }
+  ngOnInit(): void {
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
+  }  
   
   viewChildDetails(childId:number){
     console.log("<<<<<<<<<>>>>>>>>>>>>>>>>")
-    // debugger
+    debugger
     this.dataService.setData({childRecord: this.child});
-    this.router.navigate(['child-history'])
+    this.router.navigate(['/child-history',this.child.id]);
 
   }
 }

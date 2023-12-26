@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { DummyDataService } from '../services/dummy-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -31,16 +31,16 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   isCardView: boolean = true; // Default to card view
   displayedColumns: string[] = ['id', 'name', 'diagnosis', 'lastVisit'];
-
+  @Output() selectChild = new EventEmitter<number>();
   constructor(private notificationService: NotificationService, public readonly keycloak: KeycloakService,
     private changeDetectorRef: ChangeDetectorRef, private router: Router, private http: HttpClient,private dataService: DataService) { }
 
-  async ngOnInit() {
-    const isLoggedIn = await this.keycloak.isLoggedIn();
-
-    if (!isLoggedIn) {
-      this.keycloak.login();
-    }
+  ngOnInit() {
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
   
     this.isCardView = sessionStorage.getItem('preferredView') !== 'table';
     this.loadData();
@@ -74,7 +74,7 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   private handleChildDataSuccess = (data: any): void => {
     console.log('Data received:', data);
     if (!data) { return; }
-  
+    if (!data.content) { return; }
     this.childRecords = data.content;
     this.totalPages = data['total_pages'];
     this.totalRecords = data['total_elements']
@@ -117,8 +117,8 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     // debugger
     console.log('Navigating to details for child:', child.name);
     this.dataService.setData({  childRecord: child });
-
-    this.router.navigate(['/child-history']);
+    this.selectChild.emit(child.id);
+    this.router.navigate(['/child-history',child.id]);
   }
 
   addChildHandler() {

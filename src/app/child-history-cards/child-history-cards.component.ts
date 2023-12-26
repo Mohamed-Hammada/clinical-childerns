@@ -33,12 +33,12 @@ export class ChildHistoryCardsComponent implements OnInit {
   @Input() childRecord: any;
   hoverState = 'initial'; // Initial state is not hovered
   constructor(private router: Router, public readonly keycloak: KeycloakService,private dataService: DataService) { }
-  async ngOnInit(): Promise<void> {
-    const isLoggedIn = await this.keycloak.isLoggedIn();
-  
-    if (!isLoggedIn) {
-      this.keycloak.login();
-    }
+   ngOnInit(): void {
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
   }
   
   viewChildDetails(medicalRecordId: number) {

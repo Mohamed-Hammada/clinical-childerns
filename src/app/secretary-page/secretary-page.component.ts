@@ -17,15 +17,8 @@ import { catchError, tap, throwError } from 'rxjs';
 export class SecretaryPageComponent implements OnInit {
   childInfoForm!: FormGroup;
   private baseUrl = environment.apiUrl;
-  constructor(private fb: FormBuilder, public readonly keycloak: KeycloakService, private router: Router, private notificationService: NotificationService, private dataService: DataService, private http: HttpClient) { }
-
-  async ngOnInit() {
-    const isLoggedIn = await this.keycloak.isLoggedIn();
-
-    if (!isLoggedIn) {
-      this.keycloak.login();
-    }
-  
+  constructor(private fb: FormBuilder, public readonly keycloak: KeycloakService, private router: Router, private notificationService: NotificationService, private dataService: DataService, private http: HttpClient) { 
+ 
     const childRecord = this.dataService.data.childRecord;
     if (childRecord) {
       this.childInfoForm = this.fb.group({
@@ -44,6 +37,34 @@ export class SecretaryPageComponent implements OnInit {
         telephone: [''] // Example pattern for phone numbers
       });
     }
+
+  }
+
+  ngOnInit() {
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
+  
+    // const childRecord = this.dataService.data.childRecord;
+    // if (childRecord) {
+    //   this.childInfoForm = this.fb.group({
+    //     id:[childRecord.id,Validators.required],
+    //     name: [childRecord.name, Validators.required],
+    //     birthday: [childRecord.birthday, [Validators.required, this.dateValidator]],
+    //     address: [childRecord.address],
+    //     telephone: [childRecord.telephone] // Example pattern for phone numbers
+    //   });
+    // }else{
+    //   this.childInfoForm = this.fb.group({
+    //     id:[null],
+    //     name: ['', Validators.required],
+    //     birthday: ['', [Validators.required, this.dateValidator]],
+    //     address: [''],
+    //     telephone: [''] // Example pattern for phone numbers
+    //   });
+    // }
   }
 
   dateValidator(control: FormControl): { [s: string]: boolean } {

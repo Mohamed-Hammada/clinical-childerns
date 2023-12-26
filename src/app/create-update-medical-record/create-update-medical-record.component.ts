@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, Observable, map, catchError, throwError, tap } from 'rxjs';
 import { DataService } from '../services/DataService';
@@ -26,17 +26,17 @@ export class CreateUpdateMedicalRecordComponent {
   diagnosis_names: string[] = [];
   treatment_names: string[] = [];
   notes: string = '';
-
+  @Output() selectChild = new EventEmitter<number>();
   @Input() medicalRecord: any;
   @Input() childRecord: any;
   constructor(private route: ActivatedRoute, public readonly keycloak: KeycloakService, private notificationService: NotificationService, private router: Router, private dataService: DataService, private http: HttpClient) { }
 
-  async ngOnInit() {
-    const isLoggedIn = await this.keycloak.isLoggedIn();
-
-    if (!isLoggedIn) {
-      this.keycloak.login();
-    }
+  ngOnInit() {
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
 
     // debugger
     console.log(this.dataService.data)
@@ -209,7 +209,8 @@ export class CreateUpdateMedicalRecordComponent {
         tap(response => {
           console.log('Response: ', response);
           this.dataService.setData({ childRecord: this.childRecord });
-          this.router.navigate(['/child-history']);
+          this.selectChild.emit(this.childRecord.id);
+          this.router.navigate(['/child-history',this.childRecord.id]);
           this.notificationService.showSuccessNotification('Form submitted successfully');
         }),
         catchError(async error => {

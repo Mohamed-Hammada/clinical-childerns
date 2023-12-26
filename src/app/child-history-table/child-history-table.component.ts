@@ -11,13 +11,12 @@ export class ChildHistoryTableComponent implements OnInit{
   @Input() childRecord: any;
   @Output() selectChild = new EventEmitter<number>();
 constructor( public readonly keycloak: KeycloakService) {}
-async ngOnInit(): Promise<void> {
-  const isLoggedIn = await this.keycloak.isLoggedIn();
-
-  if (!isLoggedIn) {
-    this.keycloak.login();
-  }
-}
+ngOnInit() {
+  this.keycloak.isLoggedIn().then((isLoggedIn) => {
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  });}
   
 viewChildDetails(childId: number) {
     this.selectChild.emit(childId);

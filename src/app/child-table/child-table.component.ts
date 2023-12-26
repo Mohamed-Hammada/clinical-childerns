@@ -14,19 +14,19 @@ export class ChildTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'age', 'lastVisit', 'daysSinceLastVisit', 'telephone', 'address'];
 
   constructor(private router: Router, public readonly keycloak: KeycloakService,private dataService: DataService) { }
-  async ngOnInit(): Promise<void> {
-    const isLoggedIn = await this.keycloak.isLoggedIn();
-  
-    if (!isLoggedIn) {
-      this.keycloak.login();
-    }
+  ngOnInit() {
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
   }
   
   viewChildDetails(child: any) {
-    // this.selectChild.emit(childId);
+    this.selectChild.emit(child.id);
     // debugger
     this.dataService.setData({  childRecord: child });
-    this.router.navigate(['/child-history']);
+    this.router.navigate(['/child-history',child.id]);
   }
 
 }

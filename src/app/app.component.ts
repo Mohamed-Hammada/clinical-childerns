@@ -12,13 +12,13 @@ export class AppComponent implements OnInit {
 
   title = 'Kinder Health Clinic';
   constructor(public readonly keycloak: KeycloakService,private consoleToggleService: ConsoleToggleService) { }
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.consoleToggleService.disableConsoleInProduction();
 
-    const isLoggedIn = await this.keycloak.isLoggedIn();
-
-    if (!isLoggedIn) {
-      this.keycloak.login();
-    }
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
   }
 }

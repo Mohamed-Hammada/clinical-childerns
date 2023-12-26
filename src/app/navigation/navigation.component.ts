@@ -25,21 +25,24 @@ export class NavigationComponent implements OnInit {
     );
 
   constructor(private router: Router, public readonly keycloak: KeycloakService) { }
-  public async ngOnInit() {
+  ngOnInit() {
     const storedTheme = sessionStorage.getItem('theme');
     if (storedTheme) {
       this.isDarkMode = storedTheme === 'dark';
     }
     this.loadTheme();
 
-    
 
-    this.isLoggedIn = await this.keycloak.isLoggedIn();
-    if (!this.isLoggedIn) {
-      this.keycloak.login();
-    }
+
+    this.keycloak.isLoggedIn().then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        this.keycloak.login();
+      }
+    });
     if (this.isLoggedIn) {
-      this.userProfile = await this.keycloak.loadUserProfile();
+      this.keycloak.loadUserProfile().then((userProfile) => {
+        this.userProfile = userProfile;
+      });
     }
   }
 

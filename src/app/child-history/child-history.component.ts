@@ -18,14 +18,14 @@ import { NotificationService } from '../services/notification.service';
   templateUrl: './child-history.component.html',
   styleUrls: ['./child-history.component.css']
 })
-export class ChildHistoryComponent {
+export class ChildHistoryComponent implements OnInit, AfterViewInit {
 
   currentPage: number = 0;
   totalPages: number = -1;
   pageSize: number = 5;
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
-  childId: string | null = '';
+  @Input() childId: string | null = '';
   currentChildId: number = -1;
   currentChild!: any;
   medicalRecords: any[] = [];
@@ -39,14 +39,14 @@ export class ChildHistoryComponent {
     private router: Router, private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef, private http: HttpClient,private dataService: DataService, public readonly keycloak: KeycloakService) { }
 
- async ngOnInit() {
-  const isLoggedIn = await this.keycloak.isLoggedIn();
+ ngOnInit() {
+  this.keycloak.isLoggedIn().then((isLoggedIn) => {
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  });
 
-  if (!isLoggedIn) {
-    this.keycloak.login();
-  }
-
-    //debugger
+    debugger
     const data = this.dataService.data;
     this.currentChild = data.childRecord;
     this.childId = data.childRecord.id
@@ -69,8 +69,8 @@ export class ChildHistoryComponent {
     const params = new HttpParams()
       .set('page', this.currentPage.toString())
       .set('size', this.pageSize.toString());
-  
-    this.http.get<any>(this.baseUrl + `/api/visit-history/child/${this.childId}`, { params })
+    debugger
+    this.http.get<any>(this.baseUrl + `/api/visit-history/child/${this.currentChild.id}`, { params })
       .pipe(
         catchError(this.handleError),
         tap(this.handleSuccess)
@@ -81,7 +81,8 @@ export class ChildHistoryComponent {
   private handleSuccess = (data: any): void => {
     console.log('Data received:', data);
     if (!data) { return; }
-  
+    if (!data.content) { return; }
+    
     this.medicalRecords = data.content;
     this.totalPages = data['total_pages'];
     this.totalRecords = data['total_elements']

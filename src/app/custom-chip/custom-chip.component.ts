@@ -77,13 +77,12 @@ export class CustomChipComponent implements OnInit ,AfterViewInit {
 
     this.input.nativeElement.dispatchEvent(enterKeyEvent);
   }
-async  ngOnInit() {
-  const isLoggedIn = await this.keycloak.isLoggedIn();
-
-  if (!isLoggedIn) {
-    this.keycloak.login();
-  }
-
+ ngOnInit() {
+  this.keycloak.isLoggedIn().then((isLoggedIn) => {
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  });
     // Set the initial value from filteredItemsInput
     //  this.matAutocomplete.options = this.allItems; 
     // debugger
