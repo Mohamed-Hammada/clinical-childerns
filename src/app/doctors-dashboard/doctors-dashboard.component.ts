@@ -89,9 +89,14 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
     }
   };
   
-  private handleChildDataError = (error: any): any => {
+  private handleChildDataError = async (error: any): Promise<any> => {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
     console.error('Error Message: ', error);
-    this.notificationService.showErrorNotification(error.error.detail);
+    this.notificationService.showErrorNotification(error.error?.detail);
     return throwError(error);
   };
   

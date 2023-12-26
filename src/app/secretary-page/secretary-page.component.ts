@@ -68,10 +68,16 @@ export class SecretaryPageComponent implements OnInit {
             this.router.navigate(['/doctor']);
             this.notificationService.showSuccessNotification('Form submitted successfully'); 
           }),
-          catchError(error => {
+          catchError( async (error) => {
+
+            const isLoggedIn = await this.keycloak.isLoggedIn();
+
+            if (!isLoggedIn) {
+              this.keycloak.login();
+            }
             // Handle error
             console.error('Error: ', error);
-            this.notificationService.showErrorNotification(error.error.detail);
+            this.notificationService.showErrorNotification(error.error?.detail);
             
             // Return error for further handling
             return throwError(error); 

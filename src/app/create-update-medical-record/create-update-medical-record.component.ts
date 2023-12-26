@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, Observable ,  map } from 'rxjs';
+import { of, Observable, map, catchError, throwError, tap } from 'rxjs';
 import { DataService } from '../services/DataService';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -17,8 +17,8 @@ import { NotificationService } from '../services/notification.service';
 })
 export class CreateUpdateMedicalRecordComponent {
   private baseUrl = environment.apiUrl;
-  id: string | null  = null;
- 
+  id: string | null = null;
+
 
   symptoms_names: string[] = [];
   analysis_names: string[] = [];
@@ -37,7 +37,7 @@ export class CreateUpdateMedicalRecordComponent {
     if (!isLoggedIn) {
       this.keycloak.login();
     }
-  
+
     // debugger
     console.log(this.dataService.data)
 
@@ -63,46 +63,116 @@ export class CreateUpdateMedicalRecordComponent {
   }
 
   filterSymptoms = (term: string): Observable<string[]> => {
-    return this.http.get<any>(`${this.baseUrl}/symptoms`, { 
-      params: { term } 
+    return this.http.get<any>(`${this.baseUrl}/symptoms`, {
+      params: { term }
     }).pipe(
-      map(response => response.map((symptom: {name: string}) => symptom.name))
+      catchError(async (error) => {
+
+        const isLoggedIn = await this.keycloak.isLoggedIn();
+
+        if (!isLoggedIn) {
+          this.keycloak.login();
+        }
+        // Handle error
+        console.error('Error: ', error);
+        this.notificationService.showErrorNotification(error.error?.detail);
+
+        // Return error for further handling
+        return throwError(error);
+      }),
+      map(response => response.map((symptom: { name: string }) => symptom.name))
     );
   }
 
   filterAnalysis = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/analysis`, {params})
+    return this.http.get<any>(`${this.baseUrl}/analysis`, { params })
       .pipe(
-        map(response => response.map((item: {name: string}) => item.name))  
+        catchError(async (error) => {
+
+          const isLoggedIn = await this.keycloak.isLoggedIn();
+
+          if (!isLoggedIn) {
+            this.keycloak.login();
+          }
+          // Handle error
+          console.error('Error: ', error);
+          this.notificationService.showErrorNotification(error.error?.detail);
+
+          // Return error for further handling
+          return throwError(error);
+        }),
+        map(response => response.map((item: { name: string }) => item.name))
       );
   }
 
   filterXrays = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/xrays`, {params})
+    return this.http.get<any>(`${this.baseUrl}/xrays`, { params })
       .pipe(
-        map(response => response.map((item: {name: string}) => item.name))
+        catchError(async (error) => {
+
+          const isLoggedIn = await this.keycloak.isLoggedIn();
+
+          if (!isLoggedIn) {
+            this.keycloak.login();
+          }
+          // Handle error
+          console.error('Error: ', error);
+          this.notificationService.showErrorNotification(error.error?.detail);
+
+          // Return error for further handling
+          return throwError(error);
+        }),
+        map(response => response.map((item: { name: string }) => item.name))
       );
   }
 
   filterDiagnosis = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/diagnosis`, {params})  
+    return this.http.get<any>(`${this.baseUrl}/diagnosis`, { params })
       .pipe(
-        map(response => response.map((item: {name: string}) => item.name))
+        catchError(async (error) => {
+
+          const isLoggedIn = await this.keycloak.isLoggedIn();
+
+          if (!isLoggedIn) {
+            this.keycloak.login();
+          }
+          // Handle error
+          console.error('Error: ', error);
+          this.notificationService.showErrorNotification(error.error?.detail);
+
+          // Return error for further handling
+          return throwError(error);
+        }),
+        map(response => response.map((item: { name: string }) => item.name))
       );
   }
 
   filterTreatment = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/treatment`, {params})
+    return this.http.get<any>(`${this.baseUrl}/treatment`, { params })
       .pipe(
-        map(response => response.map((item: {name: string}) => item.name))  
+        catchError(async (error) => {
+
+          const isLoggedIn = await this.keycloak.isLoggedIn();
+
+          if (!isLoggedIn) {
+            this.keycloak.login();
+          }
+          // Handle error
+          console.error('Error: ', error);
+          this.notificationService.showErrorNotification(error.error?.detail);
+
+          // Return error for further handling
+          return throwError(error);
+        }),
+        map(response => response.map((item: { name: string }) => item.name))
       );
   }
 
@@ -128,26 +198,33 @@ export class CreateUpdateMedicalRecordComponent {
     console.log('Selected Treatment:', this.treatment_names);
     console.log('Notes:', this.notes);
 
-    const obj = {id:this.id, child_id: this.childRecord.id ,
-       analysis_names: this.analysis_names , symptoms_names:this.symptoms_names,
-       xrays_names: this.xrays_names , diagnosis_names: this.diagnosis_names ,
-        treatment_names : this.treatment_names , note : this.notes }
-       this.http.post<any>(`${this.baseUrl}/api/visit-history/submit-or-update`, obj)
-        .subscribe(
-          (response) => {
-            // Handle success
-            console.log('Response: ', response);
-            this.dataService.setData({  childRecord: this.childRecord });
+    const obj = {
+      id: this.id, child_id: this.childRecord.id,
+      analysis_names: this.analysis_names, symptoms_names: this.symptoms_names,
+      xrays_names: this.xrays_names, diagnosis_names: this.diagnosis_names,
+      treatment_names: this.treatment_names, note: this.notes
+    }
+    this.http.post<any>(`${this.baseUrl}/api/visit-history/submit-or-update`, obj)
+      .pipe(
+        tap(response => {
+          console.log('Response: ', response);
+          this.dataService.setData({ childRecord: this.childRecord });
+          this.router.navigate(['/child-history']);
+          this.notificationService.showSuccessNotification('Form submitted successfully');
+        }),
+        catchError(async error => {
+          const isLoggedIn = await this.keycloak.isLoggedIn();
 
-            this.router.navigate(['/child-history']); // Navigate to success route
-            this.notificationService.showSuccessNotification('Form submitted successfully');
-          },
-          (error) => {
-            // Handle error
-            console.error('Error: ', error);
-            this.notificationService.showErrorNotification(error.error.detail);
+          if (!isLoggedIn) {
+            this.keycloak.login();
           }
-        );
-     
+          console.error('Error: ', error);
+          this.notificationService.showErrorNotification(error.error?.detail);
+          return throwError(error);
+        })
+      )
+      .subscribe();
+
+
   }
 }

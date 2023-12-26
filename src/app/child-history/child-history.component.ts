@@ -96,10 +96,15 @@ export class ChildHistoryComponent {
     }
   };
   
-  private handleError = (error: any): any => {
+  private handleError = async (error: any): Promise<any> => {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
     console.error('Error Message: ', error);
-    this.notificationService.showErrorNotification(error.error.detail);
-    return of([]); // Return an empty observable to avoid breaking the chain
+    this.notificationService.showErrorNotification(error.error?.detail);
+    return of([]).toPromise(); // Return an empty observable to avoid breaking the chain
   };
   
 
