@@ -62,53 +62,50 @@ export class CreateUpdateMedicalRecordComponent {
 
   }
 
- 
-  public filterSymptoms = (term: string) => {
-    return this.http.get<any>(`${this.baseUrl}/api/symptoms/symptoms`, {
-      params: { term }
+  filterSymptoms = (term: string): Observable<string[]> => {
+    return this.http.get<any>(`${this.baseUrl}/symptoms`, { 
+      params: { term } 
     }).pipe(
-      map(response => response.content.map((symptom: {name: string})  => symptom.name))
+      map(response => response.map((symptom: {name: string}) => symptom.name))
     );
   }
-  public filterAnalysis = (term: string): Observable<string[]> => {
+
+  filterAnalysis = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/api/analysis/analysis`, {
-      params
-    }).pipe(
-      map(response => response.content.map((item: {name: string}) => item.name))
-    );
+    return this.http.get<any>(`${this.baseUrl}/analysis`, {params})
+      .pipe(
+        map(response => response.map((item: {name: string}) => item.name))  
+      );
   }
 
-  public filterXrays = (term: string): Observable<string[]> => {
+  filterXrays = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/api/xrays/xrays`, {
-      params
-    }).pipe(
-      map(response => response.content.map((item:  {name: string}) => item.name))
-    );
+    return this.http.get<any>(`${this.baseUrl}/xrays`, {params})
+      .pipe(
+        map(response => response.map((item: {name: string}) => item.name))
+      );
   }
 
-  public filterDiagnosis = (term: string): Observable<string[]> => {
+  filterDiagnosis = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/api/diagnosis/diagnosis`, {
-      params
-    }).pipe(
-      map(response => response.content.map((item:  {name: string}) => item.name))
-    );
+    return this.http.get<any>(`${this.baseUrl}/diagnosis`, {params})  
+      .pipe(
+        map(response => response.map((item: {name: string}) => item.name))
+      );
   }
 
-  public filterTreatment = (term: string): Observable<string[]> => {
+  filterTreatment = (term: string): Observable<string[]> => {
     const params = new HttpParams().set('term', term);
 
-    return this.http.get<any>(`${this.baseUrl}/api/treatment/treatment`, {
-      params
-    }).pipe(
-      map(response => response.content.map((item:  {name: string}) => item.name))
-    );
+    return this.http.get<any>(`${this.baseUrl}/treatment`, {params})
+      .pipe(
+        map(response => response.map((item: {name: string}) => item.name))  
+      );
   }
+
 
 
 

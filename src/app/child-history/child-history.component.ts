@@ -69,38 +69,39 @@ export class ChildHistoryComponent {
     const params = new HttpParams()
       .set('page', this.currentPage.toString())
       .set('size', this.pageSize.toString());
-    this.http.get<any>(this.baseUrl + `/api/visit-history/child/${this.childId}`, { params }).pipe(
-      catchError((error: any) => {
-        //debugger
-        console.error('Error Message: ', error);
-        this.notificationService.showErrorNotification(error.error.detail);
-        return throwError(error);
-      })
-    ).subscribe(
-      (data: any) => {
-        // Perform your action here with the received data
-        console.log('Data received:', data);
-        if (!data) { return }
-        this.medicalRecords = data.content;
-        this.totalPages = data['total_pages'];
-        this.totalRecords = data['total_elements']
-        this.currentPage = data['pageable']['page_number']
-        this.pageSize = data['pageable']['page_size']
-        // this.dataArray.data = this.cards;
-
-        if (this.paginator) {
-          this.paginator.pageIndex = this.currentPage - 1;
-          this.paginator.pageSize = this.pageSize;
-          this.paginator.length = this.totalRecords;
-          this.changeDetectorRef.detectChanges(); // Trigger change detection
-        }
-      },
-      error => {
-       // debugger
-        this.notificationService.showErrorNotification(error.error.detail);
-      }
-    );
+  
+    this.http.get<any>(this.baseUrl + `/api/visit-history/child/${this.childId}`, { params })
+      .pipe(
+        catchError(this.handleError),
+        tap(this.handleSuccess)
+      )
+      .subscribe();
   }
+  
+  private handleSuccess = (data: any): void => {
+    console.log('Data received:', data);
+    if (!data) { return; }
+  
+    this.medicalRecords = data.content;
+    this.totalPages = data['total_pages'];
+    this.totalRecords = data['total_elements']
+    this.currentPage = data['pageable']['page_number']
+    this.pageSize = data['pageable']['page_size']
+  
+    if (this.paginator) {
+      this.paginator.pageIndex = this.currentPage - 1;
+      this.paginator.pageSize = this.pageSize;
+      this.paginator.length = this.totalRecords;
+      this.changeDetectorRef.detectChanges(); // Trigger change detection
+    }
+  };
+  
+  private handleError = (error: any): any => {
+    console.error('Error Message: ', error);
+    this.notificationService.showErrorNotification(error.error.detail);
+    return of([]); // Return an empty observable to avoid breaking the chain
+  };
+  
 
 
   toggleView(isCardView: boolean) {

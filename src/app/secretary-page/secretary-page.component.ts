@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { DataService } from '../services/DataService';
 import { KeycloakService } from 'keycloak-angular';
 import { NotificationService } from '../services/notification.service';
+import { catchError, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-secretary-page',
@@ -56,26 +57,31 @@ export class SecretaryPageComponent implements OnInit {
 
 
   onSubmit() {
-    if (this.childInfoForm.valid) {
-      // Process your form submission here. Example:
-      console.log('Form Data: ', this.childInfoForm.value);
 
+    if (this.childInfoForm.valid) {
+  
       this.http.post<any>(`${this.baseUrl}/api/child/create-or-update`, this.childInfoForm.value)
-        .subscribe(
-          (response) => {
+        .pipe(
+          tap(response => {
             // Handle success
-            console.log('Response: ', response);
-            this.router.navigate(['/doctor']); // Navigate to success route
-            this.notificationService.showSuccessNotification('Form submitted successfully');
-          },
-          (error) => {
+            console.log('Response: ', response); 
+            this.router.navigate(['/doctor']);
+            this.notificationService.showSuccessNotification('Form submitted successfully'); 
+          }),
+          catchError(error => {
             // Handle error
             console.error('Error: ', error);
             this.notificationService.showErrorNotification(error.error.detail);
-          }
-        );
+            
+            // Return error for further handling
+            return throwError(error); 
+          })  
+        )
+        .subscribe();
+  
     }
   }
+  
 
   checkFormValidityTest() {
     // debugger

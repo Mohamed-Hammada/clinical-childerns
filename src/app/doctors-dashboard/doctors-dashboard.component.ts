@@ -58,44 +58,43 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   }
 
   loadData(): void {
-
     const params = new HttpParams()
       .set('page', this.currentPage.toString())
       .set('size', this.pageSize.toString())
       .set('term', this.searchValue?.toString() || '');
-      this.http.get<any>(this.baseUrl + "/api/child/children", { params }).pipe(
-        catchError((error:any) => {
-         // debugger
-          console.error('Error Message: ', error);
-          this.notificationService.showErrorNotification(  error.error.detail);
-          return throwError(error);
-        })
-      ).subscribe(
-        (data: any) => {
-          // Perform your action here with the received data
-          console.log('Data received:', data);
-          if(!data) { return}
-          this.childRecords = data.content;
-          this.totalPages = data['total_pages'];
-          this.totalRecords = data['total_elements']
-          this.currentPage = data['pageable']['page_number']
-          this.pageSize = data['pageable']['page_size']
-          // this.dataArray.data = this.cards;
-
-          if (this.paginator) {
-            this.paginator.pageIndex = this.currentPage - 1;
-            this.paginator.pageSize = this.pageSize;
-            this.paginator.length = this.totalRecords;
-            this.changeDetectorRef.detectChanges(); // Trigger change detection
-          }
-        },
-        error => {
-        //  debugger
-          this.notificationService.showErrorNotification(error.error.detail);
-        }
-      );
-      
+  
+    this.http.get<any>(this.baseUrl + "/api/child/children", { params })
+      .pipe(
+        catchError(this.handleChildDataError),
+        tap(this.handleChildDataSuccess)
+      )
+      .subscribe();
   }
+  
+  private handleChildDataSuccess = (data: any): void => {
+    console.log('Data received:', data);
+    if (!data) { return; }
+  
+    this.childRecords = data.content;
+    this.totalPages = data['total_pages'];
+    this.totalRecords = data['total_elements']
+    this.currentPage = data['pageable']['page_number']
+    this.pageSize = data['pageable']['page_size']
+  
+    if (this.paginator) {
+      this.paginator.pageIndex = this.currentPage - 1;
+      this.paginator.pageSize = this.pageSize;
+      this.paginator.length = this.totalRecords;
+      this.changeDetectorRef.detectChanges(); // Trigger change detection
+    }
+  };
+  
+  private handleChildDataError = (error: any): any => {
+    console.error('Error Message: ', error);
+    this.notificationService.showErrorNotification(error.error.detail);
+    return throwError(error);
+  };
+  
 
 
 
