@@ -5,6 +5,7 @@ import { DataService } from '../services/DataService';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-create-update-medical-record',
@@ -27,9 +28,15 @@ export class CreateUpdateMedicalRecordComponent {
 
   @Input() medicalRecord: any;
   @Input() childRecord: any;
-  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private router: Router, private dataService: DataService, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, public readonly keycloak: KeycloakService, private snackBar: MatSnackBar, private router: Router, private dataService: DataService, private http: HttpClient) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  
     // debugger
     console.log(this.dataService.data)
 

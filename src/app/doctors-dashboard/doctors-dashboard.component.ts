@@ -10,6 +10,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-doctors-dashboard',
   templateUrl: './doctors-dashboard.component.html',
@@ -30,11 +31,16 @@ export class DoctorsDashboardComponent implements OnInit, AfterViewInit {
   isCardView: boolean = true; // Default to card view
   displayedColumns: string[] = ['id', 'name', 'diagnosis', 'lastVisit'];
 
-  constructor(private snackBar: MatSnackBar,
+  constructor(private snackBar: MatSnackBar, public readonly keycloak: KeycloakService,
     private changeDetectorRef: ChangeDetectorRef, private router: Router, private http: HttpClient,private dataService: DataService) { }
 
-  ngOnInit() {
-    
+  async ngOnInit() {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  
     this.isCardView = sessionStorage.getItem('preferredView') !== 'table';
     this.loadData();
 

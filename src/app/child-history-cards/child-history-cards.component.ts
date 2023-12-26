@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router , NavigationExtras} from '@angular/router';
 import { DataService } from '../services/DataService';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-child-history-cards',
@@ -27,12 +28,19 @@ import { DataService } from '../services/DataService';
     ]),
   ],
 })
-export class ChildHistoryCardsComponent {
+export class ChildHistoryCardsComponent implements OnInit {
   @Input() medicalRecord: any;
   @Input() childRecord: any;
   hoverState = 'initial'; // Initial state is not hovered
-  constructor(private router: Router,private dataService: DataService) { }
-
+  constructor(private router: Router, public readonly keycloak: KeycloakService,private dataService: DataService) { }
+  async ngOnInit(): Promise<void> {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
+  
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  }
+  
   viewChildDetails(medicalRecordId: number) {
     console.log('Child Medical Record')
     this.dataService.setData({  medicalRecord: this.medicalRecord, childRecord: this.childRecord });

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-view-toggle',
@@ -13,12 +14,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class ViewToggleComponent {
+export class ViewToggleComponent implements OnInit{
   @Input() isCardView: boolean = true;
   @Output() viewModeChange = new EventEmitter<boolean>();
 
   private onChange: any = () => {};
   private onTouched: any = () => {};
+
+
+constructor(public readonly keycloak: KeycloakService) { }
+async ngOnInit(): Promise<void> {
+  const isLoggedIn = await this.keycloak.isLoggedIn();
+
+  if (!isLoggedIn) {
+    this.keycloak.login();
+  }
+}
 
   writeValue(value: any): void {
     this.isCardView = value;

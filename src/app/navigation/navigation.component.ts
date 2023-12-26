@@ -35,7 +35,9 @@ export class NavigationComponent implements OnInit {
     
 
     this.isLoggedIn = await this.keycloak.isLoggedIn();
-
+    if (!this.isLoggedIn) {
+      this.keycloak.login();
+    }
     if (this.isLoggedIn) {
       this.userProfile = await this.keycloak.loadUserProfile();
     }

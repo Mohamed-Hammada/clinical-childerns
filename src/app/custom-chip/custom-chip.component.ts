@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, catchError, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-custom-chip',
   templateUrl: './custom-chip.component.html',
@@ -38,7 +39,7 @@ export class CustomChipComponent implements OnInit ,AfterViewInit {
   private filteredItemsSubject = new BehaviorSubject<string[]>([]);
   @ViewChild('input') input!: ElementRef; 
 
-  constructor() {
+  constructor(public readonly keycloak: KeycloakService) {
     // this.filteredItems = this.itemCtrl.valueChanges.pipe(
     //   startWith(null),
     //   map((item: string | null) => (item ? this.filterFn(item) : this.allItems.slice())),
@@ -76,7 +77,13 @@ export class CustomChipComponent implements OnInit ,AfterViewInit {
 
     this.input.nativeElement.dispatchEvent(enterKeyEvent);
   }
-  ngOnInit(): void {
+async  ngOnInit() {
+  const isLoggedIn = await this.keycloak.isLoggedIn();
+
+  if (!isLoggedIn) {
+    this.keycloak.login();
+  }
+
     // Set the initial value from filteredItemsInput
     //  this.matAutocomplete.options = this.allItems; 
     // debugger

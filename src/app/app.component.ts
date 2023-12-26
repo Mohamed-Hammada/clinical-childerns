@@ -1,7 +1,7 @@
-import { Component,OnInit } from '@angular/core';
-import {SecurityService} from "./services/security-service.service";
-import {KeycloakService} from "keycloak-angular";
-import {KeycloakProfile} from "keycloak-js";
+import { Component, OnInit } from '@angular/core';
+import { SecurityService } from "./services/security-service.service";
+import { KeycloakService } from "keycloak-angular";
+import { KeycloakProfile } from "keycloak-js";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,11 +11,11 @@ export class AppComponent implements OnInit {
 
   title = 'Kinder Health Clinic';
   constructor(public readonly keycloak: KeycloakService) { }
-  ngOnInit(): void {
-    this.keycloak.isLoggedIn().then(isLoggedIn => {
-      if (!isLoggedIn) {
-        this.keycloak.login(); 
-      }
-    });
+  async ngOnInit(): Promise<void> {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
   }
 }

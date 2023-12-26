@@ -1,7 +1,8 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router, NavigationStart, NavigationEnd, NavigationError, ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/DataService';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-child-card',
@@ -27,11 +28,11 @@ import { DataService } from '../services/DataService';
     ]),
   ],
 })
-export class ChildCardComponent {
+export class ChildCardComponent implements OnInit{
   @Input() child: any;
   hoverState = 'initial'; // Initial state is not hovered
   
-  constructor(private router: Router, private route: ActivatedRoute,private dataService: DataService) { this.router.events.subscribe(event => {
+  constructor(private router: Router, public readonly keycloak: KeycloakService, private route: ActivatedRoute,private dataService: DataService) { this.router.events.subscribe(event => {
     if (event instanceof NavigationStart) {
       console.log('Navigation started to:', event.url);
     } else if (event instanceof NavigationEnd) {
@@ -40,6 +41,14 @@ export class ChildCardComponent {
       console.log('Navigation error:', event.error);
     }
   });}
+  async ngOnInit(): Promise<void> {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
+  
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  }
+  
   viewChildDetails(childId:number){
     console.log("<<<<<<<<<>>>>>>>>>>>>>>>>")
     // debugger

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DataService } from '../services/DataService';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-secretary-page',
@@ -14,10 +15,15 @@ import { DataService } from '../services/DataService';
 export class SecretaryPageComponent implements OnInit {
   childInfoForm!: FormGroup;
   private baseUrl = environment.apiUrl;
-  constructor(private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar, private dataService: DataService, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, public readonly keycloak: KeycloakService, private router: Router, private snackBar: MatSnackBar, private dataService: DataService, private http: HttpClient) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const isLoggedIn = await this.keycloak.isLoggedIn();
 
+    if (!isLoggedIn) {
+      this.keycloak.login();
+    }
+  
     const childRecord = this.dataService.data.childRecord;
     if (childRecord) {
       this.childInfoForm = this.fb.group({

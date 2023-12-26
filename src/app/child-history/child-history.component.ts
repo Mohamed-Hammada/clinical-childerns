@@ -11,6 +11,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-child-history',
   templateUrl: './child-history.component.html',
@@ -35,9 +36,15 @@ export class ChildHistoryComponent {
   searchValue: string = '';
   constructor(private snackBar: MatSnackBar, private dummyDataService: DummyDataService,
     private router: Router, private route: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef, private http: HttpClient,private dataService: DataService) { }
+    private changeDetectorRef: ChangeDetectorRef, private http: HttpClient,private dataService: DataService, public readonly keycloak: KeycloakService) { }
 
-  ngOnInit() {
+ async ngOnInit() {
+  const isLoggedIn = await this.keycloak.isLoggedIn();
+
+  if (!isLoggedIn) {
+    this.keycloak.login();
+  }
+
     //debugger
     const data = this.dataService.data;
     this.currentChild = data.childRecord;
