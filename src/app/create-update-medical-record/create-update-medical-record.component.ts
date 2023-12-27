@@ -25,6 +25,10 @@ export class CreateUpdateMedicalRecordComponent {
   xrays_names: string[] = [];
   diagnosis_names: string[] = [];
   treatment_names: string[] = [];
+  weight: number | null = null;
+    
+  length: number | null = null;
+
   notes: string = '';
   @Output() selectChild = new EventEmitter<number>();
   @Input() medicalRecord: any;
@@ -53,6 +57,8 @@ export class CreateUpdateMedicalRecordComponent {
       this.diagnosis_names = this.medicalRecord.diagnosis_names;
       this.treatment_names = this.medicalRecord.treatment_names;
       this.notes = this.medicalRecord.note;
+      this.weight = this.medicalRecord.weight;
+      this.length = this.medicalRecord.length;
     }
 
 
@@ -197,12 +203,14 @@ export class CreateUpdateMedicalRecordComponent {
     console.log('Selected Diagnosis:', this.diagnosis_names);
     console.log('Selected Treatment:', this.treatment_names);
     console.log('Notes:', this.notes);
+    console.log('Length:', this.length);
+    console.log('Weight:', this.weight);
 
     const obj = {
       id: this.id, child_id: this.childRecord.id,
       analysis_names: this.analysis_names, symptoms_names: this.symptoms_names,
       xrays_names: this.xrays_names, diagnosis_names: this.diagnosis_names,
-      treatment_names: this.treatment_names, note: this.notes
+      treatment_names: this.treatment_names, note: this.notes , weight : this.weight, length : this.length,
     }
     this.http.post<any>(`${this.baseUrl}/api/visit-history/submit-or-update`, obj)
       .pipe(

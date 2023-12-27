@@ -1,6 +1,9 @@
 .symptom-tags {
     display: flex;
     flex-wrap: wrap;
+    vertical-align: middle;
+    align-items: center;
+    /* justify-content: center; */
     /* padding-left: 1px;
     padding-right: 1px;
     margin-right: 1px;
@@ -10,30 +13,54 @@
 .symptom-tags p {
      margin-right: 1px; 
 } */
+.tag,
+.tag2 {
+    padding: 6px 12px; /* Adjust as needed */
+    margin: 5px; /* Adjust as needed */
+    color: #fff;
+    display: inline-block;
+ 
+    text-align: center;
+ 
+    border-radius: 8px;
+    vertical-align: middle;
+    align-items: center;
+}
 
 
 .tag {
     background-color: #5bacd8;
-    color: #fff;
+
+
+}
+.tag3{
+    background-color: #b7c6ce;
     display: inline-block;
-    padding: 8px 16px;
-    padding-left: 8px;
-    padding-right: 8px;
+ 
     text-align: center;
-    margin-right: 5px;
-    margin-left: 5px;
+ 
     border-radius: 8px;
+    vertical-align: middle;
+    align-items: center;
 }
 
+
+  
 .tag2 {
     background-color: #1b3f52;
-    color: #fff;
-    display: inline-block;
-    padding: 8px 16px;
-    padding-left: 8px;
-    padding-right: 8px;
-    text-align: center;
-    margin-right: 5px;
-    margin-left: 5px;
-    border-radius: 8px;
+ 
+}
+
+.values {
+    margin: 0 10px;
+  }
+.form-row {
+    display: flex;
+    /* justify-content: space-between;  */
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+
+  .mat-icon {
+    vertical-align: middle;
 }

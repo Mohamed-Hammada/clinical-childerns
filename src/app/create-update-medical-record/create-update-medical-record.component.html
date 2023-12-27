@@ -4,60 +4,73 @@
         <mat-card-title>
 
             <mat-icon style="position: relative; top: 7px;color: #FF4081;">person</mat-icon> {{ this.childRecord.name }}
-        
-            
+
+
         </mat-card-title>
         <mat-card-subtitle>
 
             <div style="display: flex; align-items: center;">
                 <mat-icon style="position: relative; top: 3px; color: #FF4081;">location_on</mat-icon>
-           
-                {{ this.childRecord.address }}
-              </div>
 
-          {{ childRecord.age_years || "0" }} years
-          <mat-icon style="color: #FF4081; font-size: 16px; vertical-align: middle;">event</mat-icon> 
-          {{ childRecord.age_months || "0" }} months
-          <mat-icon style="color: #4CAF50; font-size: 16px; vertical-align: middle;">date_range</mat-icon> 
-          {{ childRecord.age_days || "0" }} days
-          <mat-icon style="color: #2196F3; font-size: 16px; vertical-align: middle;">access_time</mat-icon> 
+                {{ this.childRecord.address }}
+            </div>
+
+            {{ childRecord.age_years || "0" }} years
+            <mat-icon style="color: #FF4081; font-size: 16px; vertical-align: middle;">event</mat-icon>
+            {{ childRecord.age_months || "0" }} months
+            <mat-icon style="color: #4CAF50; font-size: 16px; vertical-align: middle;">date_range</mat-icon>
+            {{ childRecord.age_days || "0" }} days
+            <mat-icon style="color: #2196F3; font-size: 16px; vertical-align: middle;">access_time</mat-icon>
         </mat-card-subtitle>
-        
+
 
     </mat-card-header>
 
     <mat-card-content>
-  <!-- Assuming you have Material Design icons available and the corresponding CSS classes -->
-<app-custom-chip palceHolderNameStrin="Symptoms" [filteredItemsInput]="symptoms_names"
-[filterFn]="filterSymptoms" (selectedItems)="symptoms_names = $event">
-<mat-icon style="color: #FF4081;">favorite</mat-icon>
-</app-custom-chip>
+        <!-- Assuming you have Material Design icons available and the corresponding CSS classes -->
+        <app-custom-chip palceHolderNameStrin="Symptoms" [filteredItemsInput]="symptoms_names"
+            [filterFn]="filterSymptoms" (selectedItems)="symptoms_names = $event">
+            <mat-icon style="color: #FF4081;">favorite</mat-icon>
+        </app-custom-chip>
 
-<app-custom-chip palceHolderNameStrin="Analysis" [filteredItemsInput]="analysis_names"
-[filterFn]="filterAnalysis" (selectedItems)="analysis_names = $event">
-<mat-icon style="color: #4CAF50;">insert_chart</mat-icon>
-</app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Analysis" [filteredItemsInput]="analysis_names"
+            [filterFn]="filterAnalysis" (selectedItems)="analysis_names = $event">
+            <mat-icon style="color: #4CAF50;">insert_chart</mat-icon>
+        </app-custom-chip>
 
-<app-custom-chip palceHolderNameStrin="Xrays" [filteredItemsInput]="xrays_names" [filterFn]="filterXrays"
-(selectedItems)="xrays_names = $event">
-<mat-icon style="color: #2196F3;">camera_alt</mat-icon>
-</app-custom-chip>
+        <div class="form-row">
+            <mat-form-field class="form-field">
+              <input matInput placeholder="Weight" [(ngModel)]="weight"
+                     type="number" min="0" max="1000" step="0.01">
+            </mat-form-field>
+          
+            <mat-form-field class="form-field">  
+              <input matInput placeholder="Length" [(ngModel)]="length"
+                     type="number" min="0" max="1000" step="0.01">
+            </mat-form-field>
+          </div>
 
-<app-custom-chip palceHolderNameStrin="Diagnosis" [filteredItemsInput]="diagnosis_names"
-[filterFn]="filterDiagnosis" (selectedItems)="diagnosis_names = $event">
-<mat-icon style="color: #FFC107;">assignment</mat-icon>
-</app-custom-chip>
 
-<app-custom-chip palceHolderNameStrin="Treatment" [filteredItemsInput]="treatment_names"
-[filterFn]="filterTreatment" (selectedItems)="treatment_names = $event">
-<mat-icon style="color: #607D8B;">healing</mat-icon>
-</app-custom-chip>
+        <app-custom-chip palceHolderNameStrin="Xrays" [filteredItemsInput]="xrays_names" [filterFn]="filterXrays"
+            (selectedItems)="xrays_names = $event">
+            <mat-icon style="color: #2196F3;">camera_alt</mat-icon>
+        </app-custom-chip>
 
-      
+        <app-custom-chip palceHolderNameStrin="Diagnosis" [filteredItemsInput]="diagnosis_names"
+            [filterFn]="filterDiagnosis" (selectedItems)="diagnosis_names = $event">
+            <mat-icon style="color: #FFC107;">assignment</mat-icon>
+        </app-custom-chip>
+
+        <app-custom-chip palceHolderNameStrin="Treatment" [filteredItemsInput]="treatment_names"
+            [filterFn]="filterTreatment" (selectedItems)="treatment_names = $event">
+            <mat-icon style="color: #607D8B;">healing</mat-icon>
+        </app-custom-chip>
+
+
         <mat-form-field style="width: 100%;">
-            <textarea  matInput placeholder="Notes" (keyup)="autoGrowTextZone($event)" [(ngModel)]="notes"></textarea>
+            <textarea matInput placeholder="Notes" (keyup)="autoGrowTextZone($event)" [(ngModel)]="notes"></textarea>
         </mat-form-field>
-        </mat-card-content>  
+    </mat-card-content>
     <mat-card-actions>
 
         <button color="primary" mat-raised-button type="button" (click)="submitForm()">Submit</button>
