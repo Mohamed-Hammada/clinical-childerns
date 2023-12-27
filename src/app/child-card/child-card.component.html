@@ -3,15 +3,22 @@
 (mouseenter)="hoverState = 'hovered'" (mouseleave)="hoverState = 'initial'"
 (click)="viewChildDetails(child.id)"  class="card-edges" >
 
-    <mat-card-header>
-      <mat-card-title> <mat-icon style="position: relative; top: 7px;color: #FF4081;">person</mat-icon> {{ child.name }}</mat-card-title>
+    <mat-card-header >
+      <mat-card-title> 
+        <div style="display: flex; align-items: center;">  
+        <mat-icon style="position: relative;color: #bfdbf7;">person</mat-icon> {{ child.name }}
+      </div>
+      </mat-card-title>
       <mat-card-subtitle>
-        {{ child.age_years || "0" }} years
-        <mat-icon style="color: #FF4081; font-size: 16px; vertical-align: middle;">event</mat-icon> 
-        {{ child.age_months || "0" }} months
-        <mat-icon style="color: #4CAF50; font-size: 16px; vertical-align: middle;">date_range</mat-icon> 
-        {{ child.age_days || "0" }} days
-        <mat-icon style="color: #2196F3; font-size: 16px; vertical-align: middle;">access_time</mat-icon> 
+        <p style="display: flex; align-items: center;">
+          <mat-icon style="color: #540d6e; margin-right: 5px;">event</mat-icon>
+          {{ child?.age_years || "0" }} Years
+          <mat-icon style="color: #ee4266; margin: 0 5px;">date_range</mat-icon>
+          {{ child?.age_months || "0" }} Months
+          <mat-icon style="color: #ffd23f; margin: 0 5px;">access_time</mat-icon>
+          {{ child?.age_days || "0" }} Days
+        </p>
+        
       </mat-card-subtitle>
       
       
@@ -35,17 +42,17 @@
  
   
     <p>
-      <mat-icon style="position: relative; top: 7px;color: #4CAF50;">cake</mat-icon> <!-- Replace with the appropriate icon for last visit -->
+      <mat-icon style="position: relative; top: 7px;color: #a4b0f5;">cake</mat-icon> <!-- Replace with the appropriate icon for last visit -->
   {{ child.birthday | date }}
     </p>
   
     <p>
-      <mat-icon style="color: #2196F3;">phone</mat-icon> <!-- Replace with the appropriate icon for telephone -->
+      <mat-icon style="color: #c9def4;">phone</mat-icon> <!-- Replace with the appropriate icon for telephone -->
       {{ child.telephone }}
      
     </p>
 
-    <p> <mat-icon style="color: #FFC107;">location_on</mat-icon> <!-- Replace with the appropriate icon for address -->
+    <p> <mat-icon style="color: #006ba6;">location_on</mat-icon> <!-- Replace with the appropriate icon for address -->
      {{ child.address }}  </p>
 
     </mat-card-content>

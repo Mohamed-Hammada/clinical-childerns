@@ -33,19 +33,23 @@
     <!-- Add more details as needed -->
 
     <div class="symptom-tags" *ngIf="medicalRecord.analysis_names && medicalRecord.analysis_names.length > 0">
-      <span>  Analysis:</span>
+      <div class="tag3">
+      <span>  Analysis</span>
+      </div>
       <div class="values">
       <ng-container *ngFor="let value of medicalRecord.analysis_names">
-        <p class="tag" style="background-color: #FFC107; color: #fff;">{{value}}</p>
+        <p class="tag tag-even">{{value}}</p>
       </ng-container>
     </div>
     </div>
 
     <div class="symptom-tags" *ngIf="medicalRecord.symptoms_names && medicalRecord.symptoms_names.length > 0">
-     <span> Symptoms: </span>
-     <div class="values">
+    <div class="tag3">
+      <span> Symptoms </span>
+    </div>
+      <div class="values">
       <ng-container *ngFor="let value of medicalRecord.symptoms_names">
-        <p class="tag2" style="background-color: #FF4081; color: #fff;">{{value}}</p>
+        <p class="tag2 tag-odd">{{value}}</p>
       </ng-container>
     </div>
     </div>
@@ -53,43 +57,62 @@
     <div class="form-row">
  
       <div *ngIf="medicalRecord.weight">
-        <mat-icon>line_weight</mat-icon>
-        <span>Weight:</span> 
-        {{medicalRecord.weight}}
+        <!-- <mat-icon>line_weight</mat-icon> -->
+     
+        <div class="tag3">
+          <span>Weight</span> 
+        </div>
+        <p class="tag tag-even"> {{medicalRecord.weight}} KG</p>
       </div>
 
       <div *ngIf="medicalRecord.length">
-        <mat-icon>straighten</mat-icon>
-        <span>Length:</span>
-        {{medicalRecord.length}}
+        <!-- <mat-icon>straighten</mat-icon> -->
+      
+        <div class="tag3">
+          <span>Length</span> 
+        </div>
+        <p class="tag tag-odd"> {{medicalRecord.length}} M</p>
+
       </div>
    
     
     </div>
 
     <div class="symptom-tags" *ngIf="medicalRecord.diagnosis_names && medicalRecord.diagnosis_names.length > 0">
-      Diagnosis:
+      
+      <div class="tag3">
+        <span>Diagnosis</span> 
+      </div>
       <ng-container *ngFor="let value of medicalRecord.diagnosis_names">
-        <p class="tag" style="background-color: #4CAF50; color: #fff;"> {{value}}</p>
+        <p class="tag tag-even"> {{value}}</p>
       </ng-container>
     </div>
 
     <div class="symptom-tags" *ngIf="medicalRecord.treatment_names && medicalRecord.treatment_names.length > 0">
-      Treatments:
+  
+      <div class="tag3">
+        <span>Treatments</span> 
+      </div>
       <ng-container *ngFor="let value of medicalRecord.treatment_names">
 
-        <p class="tag2" style="background-color: #2196F3; color: #fff;"> {{value}}</p>
+        <p class="tag2 tag-odd" > {{value}}</p>
       </ng-container>
     </div>
 
     <div class="symptom-tags" *ngIf="medicalRecord.xrays_names && medicalRecord.xrays_names.length > 0">
-      X-Rays:
+ 
+      <div class="tag3">
+        <span>X-Rays</span> 
+      </div>
       <ng-container *ngFor="let value of medicalRecord.xrays_names">
-        <p class="tag" style="background-color: #607D8B; color: #fff;"> {{value}}</p>
+        <p class="tag tag-even" > {{value}}</p>
       </ng-container>
     </div>
     <div *ngIf="medicalRecord.note">
-      <p>Notes: {{ medicalRecord.note }}</p>
+      <div class="tag3">
+        <span>Notes</span> 
+      </div>
+      <p class="tag tag-odd" > {{medicalRecord.note}}</p>
     </div>
 
   </mat-card-content>

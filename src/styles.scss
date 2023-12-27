@@ -79,42 +79,42 @@ body {
 
 // .theme-ligth
 .mat-toolbar.mat-primary{
-  --mat-toolbar-container-background-color: #000;
-  --mat-toolbar-container-text-color: white;
+  --mat-toolbar-container-background-color: #353535;
+  --mat-toolbar-container-text-color: #fbfef9;
 }
 
 // .theme-ligth 
 .mat-mdc-fab.mat-primary, .mat-mdc-mini-fab.mat-primary {
-  --mdc-fab-container-color: #000;
-  --mdc-fab-icon-color: white;
-  --mat-mdc-fab-color: #fff;
+  --mdc-fab-container-color: #353535;
+  --mdc-fab-icon-color: #fbfef9;
+  --mat-mdc-fab-color: #fbfef9;
 }
 
 // .theme-ligth 
 .mat-mdc-card {
-  --mdc-elevated-card-container-color: #ffffff; 
+  --mdc-elevated-card-container-color: #fbfef9; 
 }
 // .theme-ligth 
 .mat-mdc-raised-button.mat-primary {
-  --mdc-protected-button-container-color: #000;
-  --mdc-protected-button-label-text-color: #fff;
+  --mdc-protected-button-container-color: #353535;
+  --mdc-protected-button-label-text-color: #fbfef9;
 }
 
 .theme-dark .mat-toolbar.mat-primary {
-  --mat-toolbar-container-background-color: #000;
-  --mat-toolbar-container-text-color: white;
+  --mat-toolbar-container-background-color: #353535;
+  --mat-toolbar-container-text-color:#fbfef9;
 }
 
-.theme-dark .mat-mdc-fab.mat-primary, .mat-mdc-mini-fab.mat-primary {
-  --mdc-fab-container-color: #000;
-  --mdc-fab-icon-color: white;
-  --mat-mdc-fab-color: #fff;
+.theme-dark .mat-mdc-fab.mat-primary, .mat-mdc-mini-fab.mat-primary .app-toolbar {
+  --mdc-fab-container-color: #353535;
+  --mdc-fab-icon-color: #fbfef9;
+  --mat-mdc-fab-color: #fbfef9;
 }
 
 .theme-dark .mat-mdc-card {
   --mdc-elevated-card-container-color: #484a59; 
 }
 .theme-dark .mat-mdc-raised-button.mat-primary {
-  --mdc-protected-button-container-color: #000;
-  --mdc-protected-button-label-text-color: #fff;
+  --mdc-protected-button-container-color: #353535;
+  --mdc-protected-button-label-text-color: #fbfef9;
 }
