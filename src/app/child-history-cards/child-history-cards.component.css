@@ -29,12 +29,12 @@
 
 
 .tag {
-    background-color: #5b61d8;
+    background-color: #7479d9;
 
 
 }
 .tag3{
-    background-color: #132149;
+    background-color: #213469;
     display: inline-block;
     padding: 10px 18px; /* Adjust as needed */
     margin: 10px;
@@ -54,7 +54,7 @@
 }
 
 .tag-even{
-    background-color: #1c2541; 
+    background-color: #2f3b5e; 
     color: #fff;
 }
 

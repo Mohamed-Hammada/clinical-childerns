@@ -24,37 +24,39 @@
       
           </mat-card-header>
     <mat-card-content>
-      <p>
+   
  
       <!-- Last visit: {{ child.last_visit_date | date }}  -->
-   
-      <button mat-button>
+   <div class="form-row">
+      <div style="display: flex; align-items: center;">  
+        
+        <mat-icon style="color: #f9c784; margin-right: 5px;">event</mat-icon>
         {{ child.last_visit_date | date }}
-        <mat-icon style="font-size: 14px; vertical-align: middle; margin-left: 4px;">event</mat-icon>
-      </button>
+      </div>
       
-      <!-- <span class="gray-circle">{{ child.days_since_last_visit }}</span> -->
-      <button mat-mini-fab disabled>
-        {{ child.days_since_last_visit }}
-      </button>
-    </p>
+      
+      <div class="tag">  {{ child.days_since_last_visit }} </div>
+      
+    </div>
   
  
-  
+    <div style="display: flex; align-items: center;">  
     <p>
       <mat-icon style="position: relative; top: 7px;color: #a4b0f5;">cake</mat-icon> <!-- Replace with the appropriate icon for last visit -->
   {{ child.birthday | date }}
     </p>
-  
+  </div>
+  <div style="display: flex; align-items: center;">  
     <p>
       <mat-icon style="color: #c9def4;">phone</mat-icon> <!-- Replace with the appropriate icon for telephone -->
       {{ child.telephone }}
      
     </p>
-
+  </div>
+  <div style="display: flex; align-items: center;">  
     <p> <mat-icon style="color: #006ba6;">location_on</mat-icon> <!-- Replace with the appropriate icon for address -->
      {{ child.address }}  </p>
-
+  </div>
     </mat-card-content>
   
   </mat-card>
