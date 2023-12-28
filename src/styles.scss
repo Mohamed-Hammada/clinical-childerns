@@ -129,32 +129,4 @@ body {
 // }
 
 
-.floating-button {
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  z-index: 1000; /* Adjust the z-index as needed */
-}
 
-.container {
-  padding: 5px;
-}
-
-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.responsive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 24px;
-}
-
-.card-edges { 
-
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
