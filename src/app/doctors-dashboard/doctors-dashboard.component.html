@@ -11,10 +11,10 @@
 
 
                           
-<div   *ngIf="isCardView">
+<div   *ngIf="isCardView" class="container responsive-grid">
     <div *ngFor="let child of childRecords">
     <div > 
-        <app-child-card [child]="child" style="margin: 5px;"></app-child-card>
+        <app-child-card [child]="child"></app-child-card>
    
     </div>
      </div>

@@ -5,22 +5,9 @@
   align-items: center; 
 }
 
-/* Add your Angular Material theme if needed */
-.mat-button-toggle.mat-button-toggle-checked {
-  background-color: #04AA6D; /* Change this color to your desired selection color */
-  color: white; /* Optional: Change text color to make it more visible */
-}
-
-
-
-/* Add these styles to your component's CSS or the global styles */
 .floating-button {
   position: fixed;
   bottom: 20px;
   right: 30px;
   z-index: 1000; /* Adjust the z-index as needed */
-}
-
-:host ::ng-deep .mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: 28px;
 }
